@@ -45,9 +45,9 @@ export class EventsRepository {
         const bannerArtist = this.peopleRepository.getPerson(data.banner.artist.id);
         const venue = this.locationRepository.getLocation(data.venue.id);
 
-        return _.merge(data, {
+        return _.assign(data, {
             speakers: await Promise.all(speakers),
-            banner: { artist: await bannerArtist },
+            banner: _.assign(data.banner, { artist: await bannerArtist}),
             venue: await venue,
             startTime: data.startTime.toDate(),
             endTime: data.endTime.toDate()
