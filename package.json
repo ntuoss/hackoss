@@ -7,7 +7,7 @@
     "lint": "ng lint",
     "pack": "cd dist/hackoss && npm pack",
     "package": "npm run lint && npm run build && npm run pack",
-    "release": "env-cmd .env release-it"
+    "release": "npm run package && env-cmd .env release-it"
   },
   "private": true,
   "dependencies": {

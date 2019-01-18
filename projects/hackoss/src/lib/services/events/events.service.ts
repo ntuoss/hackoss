@@ -40,6 +40,9 @@ export class EventsService {
         const locationRef: firebase.firestore.DocumentReference = data['venue'];
         const venue: Promise<Location> = this.locationsService.getLocation(locationRef.id);
 
+        const startTimestamp: firebase.firestore.Timestamp = data['startTime'];
+        const endTimestamp: firebase.firestore.Timestamp = data['endTime'];
+
         return {
             tgif: data['tgif'],
             title: data['title'],
@@ -51,8 +54,8 @@ export class EventsService {
             dependencies: data['dependencies'],
             promotion: data['promotion'],
             venue: await venue,
-            startTime: data['startTime'],
-            endTime: data['endTime'],
+            startTime: startTimestamp.toDate(),
+            endTime: endTimestamp.toDate(),
             eventbriteUrl: data['eventbriteUrl'],
             githubUrl: data['githubUrl'],
             facebookUrl: data['facebookUrl'],
