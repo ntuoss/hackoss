@@ -1,6 +1,6 @@
 {
   "name": "hackoss",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "scripts": {
     "ng": "ng",
     "build": "ng build",
@@ -43,7 +43,10 @@
     "env-cmd": "^8.0.2"
   },
   "release-it": {
-    "pkgFiles": ["package.json", "projects/hackoss/package.json"],
+    "pkgFiles": [
+      "package.json",
+      "projects/hackoss/package.json"
+    ],
     "github": {
       "release": true,
       "assets": [
