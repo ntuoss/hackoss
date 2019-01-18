@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { EventsService } from './services/events/events.service';
-import { LocationsService } from './services/locations/locations.service';
-import { PeopleService } from './services/people/people.service';
-import { FirebaseConfig, FIREBASE_CONFIG } from './services/firebase/firebase.config';
+import { EventsService } from './events/events.service';
+import { LocationsService } from './locations/locations.service';
+import { PeopleService } from './people/people.service';
+import { FirebaseConfig, FIREBASE_CONFIG } from './firebase/firebase.config';
 
 @NgModule({
   imports: [],
