@@ -6,7 +6,8 @@
     "build": "ng build",
     "lint": "ng lint",
     "pack": "cd dist/hackoss && npm pack",
-    "package": "npm run lint && npm run build && npm run pack"
+    "package": "npm run lint && npm run build && npm run pack",
+    "release": "env-cmd .env release-it"
   },
   "private": true,
   "dependencies": {
@@ -19,10 +20,10 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "core-js": "^2.5.4",
+    "firebase": "^5.7.3",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
-    "zone.js": "~0.8.26",
-    "firebase": "^5.7.3"
+    "zone.js": "~0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.12.0",
@@ -37,6 +38,19 @@
     "tslib": "^1.9.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2",
-    "codelyzer": "~4.5.0"
+    "codelyzer": "~4.5.0",
+    "release-it": "10.0.0",
+    "env-cmd": "^8.0.2"
+  },
+  "release-it": {
+    "github": {
+      "release": true,
+      "assets": [
+        "dist/hackoss/*.tgz"
+      ]
+    },
+    "npm": {
+      "publish": false
+    }
   }
 }
