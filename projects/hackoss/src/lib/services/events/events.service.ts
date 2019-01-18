@@ -24,6 +24,12 @@ export class EventsService {
         return Promise.all(querySnapshot.docs.map(doc => this.toEvent(doc.data())));
     }
 
+    async getEvent(id: string): Promise<Event> {
+        const ref = this.events.doc(id);
+        const doc = await ref.get();
+        return this.toEvent(doc.data());
+    }
+
     private async toEvent(data: firebase.firestore.DocumentData): Promise<Event> {
 
         const speakerRefs: firebase.firestore.DocumentReference[] = data['speakers'];
