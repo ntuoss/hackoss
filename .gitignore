@@ -1,8 +1,5 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# env variables
-/projects/hackoss/src/lib/environments/environment\.prod\.ts
-
 # compiled output
 /dist
 /tmp
