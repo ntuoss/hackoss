@@ -46,9 +46,7 @@
   },
   "release-it": {
     "git": {
-      "requireCleanWorkingDir": false,
-      "commit": true,
-      "tag": false
+      "requireCleanWorkingDir": false
     },
     "pkgFiles": [
       "package.json",
@@ -65,13 +63,6 @@
     },
     "scripts": {
       "afterBump": "npm run build && npm run pack"
-    },
-    "prompt": {
-      "commit": false,
-      "tag": false,
-      "push": false,
-      "ghRelease": false,
-      "publish": false
     }
   }
 }
