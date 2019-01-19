@@ -4,7 +4,6 @@ import { FirebaseConfig } from './firebase.config';
 export class FirebaseRepository {
 
     firestore: firebase.firestore.Firestore;
-    storage: firebase.storage.Storage;
 
     constructor(config: FirebaseConfig) {
         this.init(config);
@@ -13,6 +12,5 @@ export class FirebaseRepository {
     private init(config: FirebaseConfig) {
         firebase.initializeApp(config);
         this.firestore = firebase.firestore();
-        this.storage = firebase.storage();
     }
 }
