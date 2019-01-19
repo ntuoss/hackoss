@@ -16,7 +16,7 @@ export class PeopleRepository {
         const querySnapshot = await this.people.get();
         return querySnapshot.docs
             .map(doc => doc.data())
-            .map((data: PersonDocument) => this.toPerson(data));
+            .map(data => this.toPerson(data as PersonDocument));
     }
 
     async getPerson(id: string): Promise<Person> {

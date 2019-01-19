@@ -1,69 +1,40 @@
 {
   "name": "hackoss",
-  "version": "0.2.5",
-  "scripts": {
-    "ng": "ng",
-    "build": "ng build",
-    "lint": "ng lint",
-    "pack": "cd dist/hackoss && npm pack",
-    "package": "npm run lint && npm run build && npm run pack",
-    "release": "npm run lint && env-cmd .env release-it --verbose"
+  "version": "0.2.9",
+  "description": "",
+  "keywords": [],
+  "main": "dist/hackoss.js",
+  "typings": "dist/types/hackoss.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Clarence Castillo <clarencecastillo@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": ""
   },
-  "private": false,
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run lint && npm run clean && tsc",
+    "package": "npm run build && npm pack",
+    "bump": "run() { bump package.json $1; }; run",
+    "publish": "npm publish *.tgz --access public",
+    "release": "run() { npm run lint && npm run bump $1 && npm run package && npm run publish; }; run"
+  },
   "dependencies": {
-    "@angular/animations": "~7.2.0",
-    "@angular/common": "~7.2.0",
-    "@angular/compiler": "~7.2.0",
-    "@angular/core": "~7.2.0",
-    "@angular/forms": "~7.2.0",
-    "@angular/platform-browser": "~7.2.0",
-    "@angular/platform-browser-dynamic": "~7.2.0",
-    "@angular/router": "~7.2.0",
-    "@types/lodash": "^4.14.120",
-    "core-js": "^2.5.4",
-    "firebase": "^5.7.3",
-    "lodash": "^4.17.11",
-    "rxjs": "~6.3.3",
-    "tslib": "^1.9.0",
-    "zone.js": "~0.8.26"
+    "firebase": "^5.8.0",
+    "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.12.0",
-    "@angular-devkit/build-ng-packagr": "~0.12.0",
-    "@angular/cli": "~7.2.1",
-    "@angular/compiler-cli": "~7.2.0",
-    "@angular/language-service": "~7.2.0",
-    "@types/node": "~8.9.4",
-    "ng-packagr": "^4.2.0",
-    "ts-node": "~7.0.0",
-    "tsickle": ">=0.34.0",
-    "tslib": "^1.9.0",
-    "tslint": "~5.11.0",
-    "typescript": "~3.2.2",
-    "codelyzer": "~4.5.0",
-    "release-it": "10.0.0",
-    "env-cmd": "^8.0.2"
-  },
-  "release-it": {
-    "pkgFiles": [
-      "package.json",
-      "projects/hackoss/package.json"
-    ],
-    "git": {
-      "requireCleanWorkingDir": false,
-      "tag": false
-    },
-    "npm": {
-      "publish": true,
-      "access": "public"
-    },
-    "scripts": {
-      "afterBump": "npm run build && npm run pack"
-    },
-    "prompt": {
-      "commit": false,
-      "push": false,
-      "publish": false
-    }
+    "@types/lodash": "^4.14.120",
+    "typescript": "~3.2.4",
+    "ts-node": "~7.0.1",
+    "tslint": "~5.12.1",
+    "bump-file": "2.0.0"
   }
 }

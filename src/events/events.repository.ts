@@ -26,11 +26,9 @@ export class EventsRepository {
 
     async getEvents(): Promise<Event[]> {
         const querySnapshot = await this.events.get();
-        return Promise.all(
-            querySnapshot.docs
-                .map(doc => doc.data())
-                .map((data: EventDocument) => this.toEvent(data))
-        );
+        return Promise.all(querySnapshot.docs
+            .map(doc => doc.data())
+            .map(data => this.toEvent(data as EventDocument)));
     }
 
     async getEvent(id: string): Promise<Event> {

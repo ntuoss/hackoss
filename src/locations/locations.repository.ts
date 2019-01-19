@@ -16,7 +16,7 @@ export class LocationsRepository {
         const querySnapshot = await this.locations.get();
         return querySnapshot.docs
             .map(doc => doc.data())
-            .map((data: LocationDocument) => this.toLocation(data));
+            .map(data => this.toLocation(data as LocationDocument));
     }
 
     async getLocation(id: string): Promise<Location> {
