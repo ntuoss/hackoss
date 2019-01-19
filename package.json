@@ -7,7 +7,7 @@
     "lint": "ng lint",
     "pack": "cd dist/hackoss && npm pack",
     "package": "npm run lint && npm run build && npm run pack",
-    "release": "npm run lint && env-cmd .env release-it"
+    "release": "npm run lint && env-cmd .env release-it --verbose"
   },
   "private": false,
   "dependencies": {
@@ -45,14 +45,14 @@
     "env-cmd": "^8.0.2"
   },
   "release-it": {
-    "git": {
-      "requireCleanWorkingDir": false,
-      "tag": false
-    },
     "pkgFiles": [
       "package.json",
       "projects/hackoss/package.json"
     ],
+    "git": {
+      "requireCleanWorkingDir": false,
+      "tag": false
+    },
     "npm": {
       "publish": true,
       "access": "public"
