@@ -1,4 +1,4 @@
-export class PersonDocument {
+export class FirebaseOrganisation {
     name: string;
     about: string;
     githubUrl: string;

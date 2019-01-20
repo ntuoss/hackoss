@@ -1,15 +1,15 @@
 import { Proficiency, EventStatus } from './event';
 
-export class EventDocument {
+export class FirebaseEvent {
     tgif: number;
     title: string;
-    speakers: firebase.firestore.DocumentReference[];
+    speakers: {
+        person: firebase.firestore.DocumentReference;
+        organisation: firebase.firestore.DocumentReference;
+        position: string;
+    }[];
     tagline: string;
-    banner: {
-        title: string;
-        imageUrl: string;
-        artist: firebase.firestore.DocumentReference;
-    };
+    banner: firebase.firestore.DocumentReference;
     description: string;
     prerequisites: {
         label: string;
@@ -29,4 +29,9 @@ export class EventDocument {
     githubUrl: string;
     facebookUrl: string;
     status: EventStatus;
+    public: boolean;
+    external: boolean;
+    hasFood: boolean;
+    hasDrinks: boolean;
+    remarks: string;
 }

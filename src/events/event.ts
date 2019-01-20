@@ -1,10 +1,12 @@
 import { Person } from '../people/person';
 import { Location } from '../locations/location';
+import { Organisation } from '../organisations/organisation';
+import { Artwork } from '../artworks/artwork';
 
 export class Event {
   tgif: number;
   title: string;
-  speakers: Person[];
+  speakers: Speaker[];
   tagline: string;
   banner: Artwork;
   description: string;
@@ -18,12 +20,17 @@ export class Event {
   githubUrl: string;
   facebookUrl: string;
   status: EventStatus;
+  public: boolean;
+  external: boolean;
+  hasFood: boolean;
+  hasDrinks: boolean;
+  remarks: string;
 }
 
-export class Artwork {
-  title: string;
-  imageUrl: string;
-  artist: Person;
+export class Speaker {
+  person: Person;
+  organisation: Organisation;
+  position: string;
 }
 
 export class Dependency {

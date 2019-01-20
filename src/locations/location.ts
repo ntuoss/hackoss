@@ -3,4 +3,5 @@ export class Location {
     imageUrl: string;
     address: string;
     seatingCapacity: number;
+    eventbriteId: string;
 }

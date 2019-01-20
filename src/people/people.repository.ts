@@ -1,6 +1,6 @@
 import { Person } from './person';
 import { FirebaseRepository } from '../firebase/firebase.repository';
-import { PersonDocument } from './person.document';
+import { FirebasePerson } from './firebase-person';
 
 export class PeopleRepository {
 
@@ -16,16 +16,16 @@ export class PeopleRepository {
         const querySnapshot = await this.people.get();
         return querySnapshot.docs
             .map(doc => doc.data())
-            .map(data => this.toPerson(data as PersonDocument));
+            .map(data => this.toPerson(data as FirebasePerson));
     }
 
     async getPerson(id: string): Promise<Person> {
         const ref = this.people.doc(id);
         const doc = await ref.get();
-        return this.toPerson(doc.data() as PersonDocument);
+        return this.toPerson(doc.data() as FirebasePerson);
     }
 
-    private toPerson(data: PersonDocument): Person {
+    private toPerson(data: FirebasePerson): Person {
         return data;
     }
 
