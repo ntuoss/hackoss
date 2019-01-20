@@ -20,11 +20,12 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "clean": "rm -rf dist && mkdir dist",
-    "build": "npm run lint && npm run clean && tsc",
-    "package": "npm run build && npm pack",
+    "build": "npm run clean && tsc",
+    "package": "npm run build && tsc && rm *.tgz && npm pack",
     "bump": "run() { bump package.json $1; }; run",
-    "publish": "npm publish *.tgz --access public",
-    "release": "run() { npm run lint && npm run bump $1 && npm run package && npm run publish; }; run"
+    "publish": "npm publish *.tgz",
+    "prerelease": "run() { npm run lint && npm run bump $1 && npm run package; }; run",
+    "release": "npm run prerelease && npm run publish"
   },
   "dependencies": {
     "firebase": "^5.8.0",
