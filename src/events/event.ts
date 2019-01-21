@@ -4,6 +4,7 @@ import { Organisation } from '../organisations/organisation';
 import { Artwork } from '../artworks/artwork';
 
 export class Event {
+  id: string;
   tgif: number;
   title: string;
   speakers: Speaker[];

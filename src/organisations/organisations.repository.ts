@@ -1,6 +1,7 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Organisation } from './organisation';
 import { FirebaseOrganisation } from './firebase-organisation';
+import { withId } from '../utils';
 
 export class OrganisationsRepository {
 
@@ -15,14 +16,13 @@ export class OrganisationsRepository {
     async getOrganisations(): Promise<Organisation[]> {
         const querySnapshot = await this.organisations.get();
         return querySnapshot.docs
-            .map(doc => doc.data())
-            .map(data => this.toOrganisation(data as FirebaseOrganisation));
+            .map(doc => this.toOrganisation(withId<FirebaseOrganisation>(doc.data(), doc.id)));
     }
 
     async getOrganisation(id: string): Promise<Organisation> {
         const ref = this.organisations.doc(id);
         const doc = await ref.get();
-        return this.toOrganisation(doc.data() as FirebaseOrganisation);
+        return this.toOrganisation(withId<FirebaseOrganisation>(doc.data(), id));
     }
 
     private toOrganisation(data: FirebaseOrganisation): Organisation {

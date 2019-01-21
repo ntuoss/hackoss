@@ -6,6 +6,7 @@ import { FirebaseEvent } from './firebase-event';
 import * as _ from 'lodash';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
+import { withId } from '../utils';
 
 export class EventsRepository {
 
@@ -35,14 +36,13 @@ export class EventsRepository {
     async getEvents(): Promise<Event[]> {
         const querySnapshot = await this.events.get();
         return Promise.all(querySnapshot.docs
-            .map(doc => doc.data())
-            .map(data => this.toEvent(data as FirebaseEvent)));
+            .map(doc => this.toEvent(withId<FirebaseEvent>(doc.data(), doc.id))));
     }
 
     async getEvent(id: string): Promise<Event> {
         const ref = this.events.doc(id);
         const doc = await ref.get();
-        return this.toEvent(doc.data() as FirebaseEvent);
+        return this.toEvent(withId<FirebaseEvent>(doc.data(), id));
     }
 
     private async toEvent(data: FirebaseEvent): Promise<Event> {

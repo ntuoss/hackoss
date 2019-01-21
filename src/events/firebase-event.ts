@@ -1,6 +1,7 @@
 import { Proficiency, EventStatus } from './event';
 
 export class FirebaseEvent {
+    id: string;
     tgif: number;
     title: string;
     speakers: {

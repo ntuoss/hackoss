@@ -1,6 +1,8 @@
 import { Location } from './location';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { FirebaseLocation } from './firebase-location';
+import * as _ from 'lodash';
+import { withId } from '../utils';
 
 export class LocationsRepository {
 
@@ -15,14 +17,13 @@ export class LocationsRepository {
     async getLocations(): Promise<Location[]> {
         const querySnapshot = await this.locations.get();
         return querySnapshot.docs
-            .map(doc => doc.data())
-            .map(data => this.toLocation(data as FirebaseLocation));
+            .map(doc => this.toLocation(withId<FirebaseLocation>(doc.data(), doc.id)));
     }
 
     async getLocation(id: string): Promise<Location> {
         const ref = this.locations.doc(id);
         const doc = await ref.get();
-        return this.toLocation(doc.data() as FirebaseLocation);
+        return this.toLocation(withId<FirebaseLocation>(doc.data(), id));
     }
 
     private toLocation(data: FirebaseLocation): Location {
