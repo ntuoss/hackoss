@@ -35,4 +35,5 @@ export class FirebaseEvent {
     hasFood: boolean;
     hasDrinks: boolean;
     remarks: string;
+    eventbriteId: string;
 }

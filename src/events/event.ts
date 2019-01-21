@@ -17,6 +17,7 @@ export class Event {
   venue: Location;
   startTime: Date;
   endTime: Date;
+  eventbriteId: string;
   eventbriteUrl: string;
   githubUrl: string;
   facebookUrl: string;
