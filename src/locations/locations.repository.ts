@@ -7,7 +7,7 @@ import { withId } from '../utils';
 export class LocationsRepository {
 
     private firebaseRepository: FirebaseRepository;
-    private locations: firebase.firestore.CollectionReference;
+    locations: firebase.firestore.CollectionReference;
 
     constructor(firebaseRepository: FirebaseRepository) {
         this.firebaseRepository = firebaseRepository;

@@ -9,7 +9,7 @@ export class ArtworksRepository {
 
     private firebaseRepository: FirebaseRepository;
     private peopleRepository: PeopleRepository;
-    private artworks: firebase.firestore.CollectionReference;
+    artworks: firebase.firestore.CollectionReference;
 
     constructor(
         firebaseService: FirebaseRepository,

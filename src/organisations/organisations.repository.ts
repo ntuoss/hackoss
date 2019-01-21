@@ -6,7 +6,7 @@ import { withId } from '../utils';
 export class OrganisationsRepository {
 
     private firebaseRepository: FirebaseRepository;
-    private organisations: firebase.firestore.CollectionReference;
+    organisations: firebase.firestore.CollectionReference;
 
     constructor(firebaseService: FirebaseRepository) {
         this.firebaseRepository = firebaseService;

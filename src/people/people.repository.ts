@@ -6,7 +6,7 @@ import { withId } from '../utils';
 export class PeopleRepository {
 
     private firebaseRepository: FirebaseRepository;
-    private people: firebase.firestore.CollectionReference;
+    people: firebase.firestore.CollectionReference;
 
     constructor(firebaseService: FirebaseRepository) {
         this.firebaseRepository = firebaseService;

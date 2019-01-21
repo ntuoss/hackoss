@@ -15,7 +15,7 @@ export class EventsRepository {
     private locationRepository: LocationsRepository;
     private organisationsRepository: OrganisationsRepository;
     private artworksRepository: ArtworksRepository;
-    protected events: firebase.firestore.CollectionReference;
+    events: firebase.firestore.CollectionReference;
 
     constructor(
         firebaseRepository: FirebaseRepository,
