@@ -1,4 +1,4 @@
-import { Proficiency, EventStatus } from './event';
+import { Proficiency, EventStatus, Publication } from './event';
 
 export class FirebaseEvent {
     id: string;
@@ -26,14 +26,13 @@ export class FirebaseEvent {
     venue: firebase.firestore.DocumentReference;
     startTime: firebase.firestore.Timestamp;
     endTime: firebase.firestore.Timestamp;
-    eventbriteUrl: string;
     githubUrl: string;
-    facebookUrl: string;
     status: EventStatus;
     public: boolean;
     external: boolean;
     hasFood: boolean;
     hasDrinks: boolean;
     remarks: string;
-    eventbriteId: string;
+    eventbrite: Publication;
+    facebook: Publication;
 }

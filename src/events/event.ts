@@ -17,16 +17,15 @@ export class Event {
   venue: Location;
   startTime: Date;
   endTime: Date;
-  eventbriteId: string;
-  eventbriteUrl: string;
   githubUrl: string;
-  facebookUrl: string;
   status: EventStatus;
   public: boolean;
   external: boolean;
   hasFood: boolean;
   hasDrinks: boolean;
   remarks: string;
+  eventbrite: Publication;
+  facebook: Publication;
 }
 
 export class Speaker {
@@ -45,6 +44,12 @@ export class Prerequisite {
   label: string;
   proficiency: Proficiency;
   referenceUrl: string;
+}
+
+export class Publication {
+  id: string;
+  status: EventStatus;
+  url: string;
 }
 
 export type Proficiency = 'basic' | 'intermediate' | 'advanced';
