@@ -2,7 +2,8 @@ export class FirebaseLocation {
     id: string;
     name: string;
     imageUrl: string;
-    address: string;
+    addressLine1: string;
+    addressLine2: string;
     seatingCapacity: number;
     eventbriteId: string;
 }
