@@ -53,4 +53,4 @@ export class Publication {
 }
 
 export type Proficiency = 'basic' | 'intermediate' | 'advanced';
-export type EventStatus = 'pending' | 'live' | 'done';
+export type EventStatus = 'draft' | 'live' | 'completed';
