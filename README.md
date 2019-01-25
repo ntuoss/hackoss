@@ -1,12 +1,13 @@
-## This is a .ts library for hackoss project internal use
+# HackOSS Library
 
-The library contains firebase firestore integration with:
+## This is a .ts library for internal use in NTUOSS hackoss projects
 
-- firebase repository config
-- Artworks - for image upload
-- events - for event details
-- location - workshop location info
-- organizations - organizations involved in the TGIFHacks project (internal & external speakers)
-- people - the speaker info reference for the workshops
+The library contains Firebase Firestore integrations with the following collections:
 
-refer to doc / original code for detail information
+- Artworks - for image uploading and management
+- Events - for event data management
+- Locations - workshop location information
+- Organisations - organisations involved in the TGIFHacks workshops (internal & external speakers)
+- People - workshop speakers or artwork artists
+
+Please refer to docs or source code for detailed information
