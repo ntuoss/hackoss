@@ -1,7 +1,7 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Organisation } from './organisation';
 import { FirebaseOrganisation } from './firebase-organisation';
-import { withId } from '../utils';
+import { withId, QueryFilter, buildQuery } from '../utils';
 
 export class OrganisationsRepository {
 
@@ -13,10 +13,15 @@ export class OrganisationsRepository {
         this.organisations = this.firebaseRepository.firestore.collection('organisations');
     }
 
-    async getOrganisations(): Promise<Organisation[]> {
-        const querySnapshot = await this.organisations.get();
-        return querySnapshot.docs
-            .map(doc => this.toOrganisation(withId<FirebaseOrganisation>(doc.data(), doc.id)));
+    async getOrganisations(
+        filters: QueryFilter[] = [],
+        limit: number = 10,
+        orderBy: OrganisationsOrderKey = 'name',
+        direction: firebase.firestore.OrderByDirection = 'asc'
+    ): Promise<Organisation[]> {
+        const orderByPath = ORGANISATIONS_ORDER_KEY_PATH_MAP[orderBy];
+        const results = await buildQuery(this.organisations, limit, orderByPath, direction, filters).get();
+        return results.docs.map(doc => this.toOrganisation(withId<FirebaseOrganisation>(doc.data(), doc.id)));
     }
 
     async getOrganisation(id: string): Promise<Organisation> {
@@ -30,3 +35,9 @@ export class OrganisationsRepository {
     }
 
 }
+
+const ORGANISATIONS_ORDER_KEY_PATH_MAP: { [key in OrganisationsOrderKey]: string; } = {
+    'name': 'name'
+};
+
+export type OrganisationsOrderKey = 'name';
