@@ -2,8 +2,9 @@ import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Artwork } from './artwork';
 import { FirebaseArtwork } from './artwork.firebase';
 import { PeopleRepository } from '../people/people.repository';
-import * as _ from 'lodash';
 import { withId, QueryFilter, buildQuery } from '../utils';
+import firebase from 'firebase';
+import _ from 'lodash';
 
 const ARTWORKS_ORDER_KEY_PATH_MAP: { [key in ArtworksOrderKey]: string; } = {
     'title': 'title'

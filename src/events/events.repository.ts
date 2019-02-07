@@ -6,6 +6,8 @@ import { FirebaseEvent, FirebaseEventSpeaker } from './event.firebase';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
 import { withId, QueryFilter, buildQuery } from '../utils';
+import firebase from 'firebase';
+import _ from 'lodash';
 
 const EVENTS_ORDER_KEY_PATH_MAP: { [key in EventsOrderKey]: string; } = {
     'date': 'startTime',
