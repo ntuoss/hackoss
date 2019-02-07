@@ -1,5 +1,7 @@
 # HackOSS Library
 
+[![npm version](https://badge.fury.io/js/hackoss.svg)](https://badge.fury.io/js/hackoss)
+
 ## This is a .ts library for internal use in NTUOSS hackoss projects
 
 The library contains Firebase Firestore integrations with the following collections:
