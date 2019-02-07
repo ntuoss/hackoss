@@ -6,6 +6,7 @@ import { FirebaseEvent, FirebaseEventSpeaker } from './event.firebase';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
 import { withId, QueryFilter, buildQuery } from '../utils';
+import { validators } from 'validate.js';
 import firebase from 'firebase';
 import _ from 'lodash';
 
@@ -38,6 +39,15 @@ export class EventsRepository {
         this.artworksRepository = artworksRepository;
 
         this.events = this.firebaseRepository.firestore.collection('events');
+
+        validators.tgifUnique = (tgif: number) => new Promise(async (resolve) => {
+            const doc = await this.events.where('tgif', '==', tgif).get();
+            if (doc.docs.length === 0) {
+                resolve();
+            } else {
+                resolve(`Event with TGIFHacks # ${tgif} already exists in Firebase`);
+            }
+        });
     }
 
     async getEvents(

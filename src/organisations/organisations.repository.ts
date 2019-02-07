@@ -2,6 +2,7 @@ import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Organisation } from './organisation';
 import { FirebaseOrganisation } from './organisation.firebase';
 import { withId, QueryFilter, buildQuery } from '../utils';
+import { validators } from 'validate.js';
 import firebase from 'firebase';
 import _ from 'lodash';
 
@@ -19,6 +20,15 @@ export class OrganisationsRepository {
     constructor(firebaseService: FirebaseRepository) {
         this.firebaseRepository = firebaseService;
         this.organisations = this.firebaseRepository.firestore.collection('organisations');
+
+        validators.organisationExists = (organisationId: string) => new Promise(async (resolve) => {
+            const doc = await this.organisations.doc(organisationId).get();
+            if (doc.exists) {
+                resolve();
+            } else {
+                resolve(`Organisation with ID ${organisationId} does not exist in Firebase`);
+            }
+        });
     }
 
     async getOrganisations(
