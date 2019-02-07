@@ -1,6 +1,6 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Artwork } from './artwork';
-import { FirebaseArtwork } from './firebase-artwork';
+import { FirebaseArtwork } from './artwork.firebase';
 import { PeopleRepository } from '../people/people.repository';
 import * as _ from 'lodash';
 import { withId, QueryFilter, buildQuery } from '../utils';

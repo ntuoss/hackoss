@@ -1,6 +1,6 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Organisation } from './organisation';
-import { FirebaseOrganisation } from './firebase-organisation';
+import { FirebaseOrganisation } from './organisation.firebase';
 import { withId, QueryFilter, buildQuery } from '../utils';
 
 const ORGANISATIONS_ORDER_KEY_PATH_MAP: { [key in OrganisationsOrderKey]: string; } = {

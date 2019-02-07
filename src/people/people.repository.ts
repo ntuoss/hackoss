@@ -1,6 +1,6 @@
 import { Person } from './person';
 import { FirebaseRepository } from '../firebase/firebase.repository';
-import { FirebasePerson } from './firebase-person';
+import { FirebasePerson } from './person.firebase';
 import { withId, QueryFilter, buildQuery } from '../utils';
 
 const PEOPLE_ORDER_KEY_PATH_MAP: { [key in PeopleOrderKey]: string; } = {

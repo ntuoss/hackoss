@@ -1,7 +1,6 @@
 import { Location } from './location';
 import { FirebaseRepository } from '../firebase/firebase.repository';
-import { FirebaseLocation } from './firebase-location';
-import * as _ from 'lodash';
+import { FirebaseLocation } from './location.firebase';
 import { withId, QueryFilter, buildQuery } from '../utils';
 
 const LOCATIONS_ORDER_KEY_PATH_MAP: { [key in LocationsOrderKey]: string; } = {
