@@ -5,6 +5,10 @@ import { PeopleRepository } from '../people/people.repository';
 import * as _ from 'lodash';
 import { withId, QueryFilter, buildQuery } from '../utils';
 
+const ARTWORKS_ORDER_KEY_PATH_MAP: { [key in ArtworksOrderKey]: string; } = {
+    'title': 'title'
+};
+
 export class ArtworksRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -45,9 +49,5 @@ export class ArtworksRepository {
     }
 
 }
-
-const ARTWORKS_ORDER_KEY_PATH_MAP: { [key in ArtworksOrderKey]: string; } = {
-    'title': 'title'
-};
 
 export type ArtworksOrderKey = 'title';

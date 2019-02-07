@@ -8,6 +8,10 @@ import { OrganisationsRepository } from '../organisations/organisations.reposito
 import { ArtworksRepository } from '../artworks/artworks.repository';
 import { withId, QueryFilter, buildQuery } from '../utils';
 
+const EVENTS_ORDER_KEY_PATH_MAP: { [key in EventsOrderKey]: string; } = {
+    'date': 'startTime',
+    'title': 'title'
+};
 export class EventsRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -74,10 +78,5 @@ export class EventsRepository {
         });
     }
 }
-
-const EVENTS_ORDER_KEY_PATH_MAP: { [key in EventsOrderKey]: string; } = {
-    'date': 'startTime',
-    'title': 'title'
-};
 
 export type EventsOrderKey = 'date' | 'title';

@@ -3,6 +3,10 @@ import { Organisation } from './organisation';
 import { FirebaseOrganisation } from './firebase-organisation';
 import { withId, QueryFilter, buildQuery } from '../utils';
 
+const ORGANISATIONS_ORDER_KEY_PATH_MAP: { [key in OrganisationsOrderKey]: string; } = {
+    'name': 'name'
+};
+
 export class OrganisationsRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -35,9 +39,5 @@ export class OrganisationsRepository {
     }
 
 }
-
-const ORGANISATIONS_ORDER_KEY_PATH_MAP: { [key in OrganisationsOrderKey]: string; } = {
-    'name': 'name'
-};
 
 export type OrganisationsOrderKey = 'name';
