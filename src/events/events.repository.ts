@@ -6,8 +6,12 @@ import { FirebaseEvent } from './firebase-event';
 import * as _ from 'lodash';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
-import { withId } from '../utils';
+import { withId, QueryFilter, buildQuery } from '../utils';
 
+const EVENTS_ORDER_KEY_PATH_MAP: { [key in EventsOrderKey]: string; } = {
+    'date': 'startTime',
+    'title': 'title'
+};
 export class EventsRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -33,10 +37,15 @@ export class EventsRepository {
         this.events = this.firebaseRepository.firestore.collection('events');
     }
 
-    async getEvents(): Promise<Event[]> {
-        const querySnapshot = await this.events.get();
-        return Promise.all(querySnapshot.docs
-            .map(doc => this.toEvent(withId<FirebaseEvent>(doc.data(), doc.id))));
+    async getEvents(
+        filters: QueryFilter[] = [],
+        limit: number = 10,
+        orderBy: EventsOrderKey = 'date',
+        direction: firebase.firestore.OrderByDirection = 'desc'
+    ): Promise<Event[]> {
+        const orderByPath = EVENTS_ORDER_KEY_PATH_MAP[orderBy];
+        const results = await buildQuery(this.events, limit, orderByPath, direction, filters).get();
+        return Promise.all(results.docs.map(doc => this.toEvent(withId<FirebaseEvent>(doc.data(), doc.id))));
     }
 
     async getEvent(id: string): Promise<Event> {
@@ -69,3 +78,5 @@ export class EventsRepository {
         });
     }
 }
+
+export type EventsOrderKey = 'date' | 'title';

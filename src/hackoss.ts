@@ -17,3 +17,5 @@ export * from './artworks/artworks.repository';
 
 export * from './firebase/firebase.config';
 export * from './firebase/firebase.repository';
+
+export * from './utils';

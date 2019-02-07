@@ -3,7 +3,11 @@ import { Artwork } from './artwork';
 import { FirebaseArtwork } from './firebase-artwork';
 import { PeopleRepository } from '../people/people.repository';
 import * as _ from 'lodash';
-import { withId } from '../utils';
+import { withId, QueryFilter, buildQuery } from '../utils';
+
+const ARTWORKS_ORDER_KEY_PATH_MAP: { [key in ArtworksOrderKey]: string; } = {
+    'title': 'title'
+};
 
 export class ArtworksRepository {
 
@@ -20,10 +24,15 @@ export class ArtworksRepository {
         this.artworks = this.firebaseRepository.firestore.collection('artworks');
     }
 
-    async getArtworks(): Promise<Artwork[]> {
-        const querySnapshot = await this.artworks.get();
-        return Promise.all(querySnapshot.docs
-            .map(doc => this.toArtwork(withId<FirebaseArtwork>(doc.data(), doc.id))));
+    async getArtworks(
+        filters: QueryFilter[] = [],
+        limit: number = 10,
+        orderBy: ArtworksOrderKey = 'title',
+        direction: firebase.firestore.OrderByDirection = 'asc'
+    ): Promise<Artwork[]> {
+        const orderByPath = ARTWORKS_ORDER_KEY_PATH_MAP[orderBy];
+        const results = await buildQuery(this.artworks, limit, orderByPath, direction, filters).get();
+        return Promise.all(results.docs.map(doc => this.toArtwork(withId<FirebaseArtwork>(doc.data(), doc.id))));
     }
 
     async getArtwork(id: string): Promise<Artwork> {
@@ -40,3 +49,5 @@ export class ArtworksRepository {
     }
 
 }
+
+export type ArtworksOrderKey = 'title';

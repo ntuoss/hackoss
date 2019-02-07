@@ -1,7 +1,11 @@
 import { Person } from './person';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { FirebasePerson } from './firebase-person';
-import { withId } from '../utils';
+import { withId, QueryFilter, buildQuery } from '../utils';
+
+const PEOPLE_ORDER_KEY_PATH_MAP: { [key in PeopleOrderKey]: string; } = {
+    'name': 'name'
+};
 
 export class PeopleRepository {
 
@@ -13,10 +17,15 @@ export class PeopleRepository {
         this.people = this.firebaseRepository.firestore.collection('people');
     }
 
-    async getPeople(): Promise<Person[]> {
-        const querySnapshot = await this.people.get();
-        return querySnapshot.docs
-            .map(doc => this.toPerson(withId<FirebasePerson>(doc.data(), doc.id)));
+    async getPeople(
+        filters: QueryFilter[] = [],
+        limit: number = 10,
+        orderBy: PeopleOrderKey = 'name',
+        direction: firebase.firestore.OrderByDirection = 'asc'
+    ): Promise<Person[]> {
+        const orderByPath = PEOPLE_ORDER_KEY_PATH_MAP[orderBy];
+        const results = await buildQuery(this.people, limit, orderByPath, direction, filters).get();
+        return results.docs.map(doc => this.toPerson(withId<FirebasePerson>(doc.data(), doc.id)));
     }
 
     async getPerson(id: string): Promise<Person> {
@@ -30,3 +39,5 @@ export class PeopleRepository {
     }
 
 }
+
+export type PeopleOrderKey = 'name';
