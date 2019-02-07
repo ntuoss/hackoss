@@ -9,6 +9,8 @@ import { withId, QueryFilter, buildQuery } from '../utils';
 import firebase from 'firebase';
 import _ from 'lodash';
 
+export type EventsOrderKey = 'date' | 'title';
+
 const EVENTS_ORDER_KEY_PATH_MAP: { [key in EventsOrderKey]: string; } = {
     'date': 'startTime',
     'title': 'title'
@@ -79,5 +81,3 @@ export class EventsRepository {
         });
     }
 }
-
-export type EventsOrderKey = 'date' | 'title';

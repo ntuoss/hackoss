@@ -5,6 +5,8 @@ import { withId, QueryFilter, buildQuery } from '../utils';
 import firebase from 'firebase';
 import _ from 'lodash';
 
+export type LocationsOrderKey = 'name';
+
 const LOCATIONS_ORDER_KEY_PATH_MAP: { [key in LocationsOrderKey]: string; } = {
     'name': 'name'
 };
@@ -41,5 +43,3 @@ export class LocationsRepository {
     }
 
 }
-
-export type LocationsOrderKey = 'name';

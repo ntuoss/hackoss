@@ -5,6 +5,8 @@ import { withId, QueryFilter, buildQuery } from '../utils';
 import firebase from 'firebase';
 import _ from 'lodash';
 
+export type PeopleOrderKey = 'name';
+
 const PEOPLE_ORDER_KEY_PATH_MAP: { [key in PeopleOrderKey]: string; } = {
     'name': 'name'
 };
@@ -41,5 +43,3 @@ export class PeopleRepository {
     }
 
 }
-
-export type PeopleOrderKey = 'name';

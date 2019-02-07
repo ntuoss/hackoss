@@ -5,6 +5,8 @@ import { withId, QueryFilter, buildQuery } from '../utils';
 import firebase from 'firebase';
 import _ from 'lodash';
 
+export type OrganisationsOrderKey = 'name';
+
 const ORGANISATIONS_ORDER_KEY_PATH_MAP: { [key in OrganisationsOrderKey]: string; } = {
     'name': 'name'
 };
@@ -41,5 +43,3 @@ export class OrganisationsRepository {
     }
 
 }
-
-export type OrganisationsOrderKey = 'name';

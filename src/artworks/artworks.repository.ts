@@ -6,6 +6,8 @@ import { withId, QueryFilter, buildQuery } from '../utils';
 import firebase from 'firebase';
 import _ from 'lodash';
 
+export type ArtworksOrderKey = 'title';
+
 const ARTWORKS_ORDER_KEY_PATH_MAP: { [key in ArtworksOrderKey]: string; } = {
     'title': 'title'
 };
@@ -19,7 +21,7 @@ export class ArtworksRepository {
     constructor(
         firebaseService: FirebaseRepository,
         peopleRepository: PeopleRepository
-        ) {
+    ) {
         this.firebaseRepository = firebaseService;
         this.peopleRepository = peopleRepository;
         this.artworks = this.firebaseRepository.firestore.collection('artworks');
@@ -50,5 +52,3 @@ export class ArtworksRepository {
     }
 
 }
-
-export type ArtworksOrderKey = 'title';
