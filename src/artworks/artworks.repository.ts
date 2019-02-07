@@ -12,6 +12,13 @@ const ARTWORKS_ORDER_KEY_PATH_MAP: { [key in ArtworksOrderKey]: string; } = {
     'title': 'title'
 };
 
+export interface NewArtwork {
+    title: string;
+    imageUrl: string;
+    artistId: string;
+    eventbriteId: string;
+}
+
 export class ArtworksRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -25,6 +32,16 @@ export class ArtworksRepository {
         this.firebaseRepository = firebaseService;
         this.peopleRepository = peopleRepository;
         this.artworks = this.firebaseRepository.firestore.collection('artworks');
+    }
+
+    async createArtwork(artwork: NewArtwork) {
+        const newArtwork: _.Omit<FirebaseArtwork, 'id'> = {
+            title: artwork.title,
+            imageUrl: artwork.imageUrl,
+            eventbriteId: artwork.eventbriteId,
+            artist: this.peopleRepository.people.doc(artwork.artistId)
+        };
+        await this.artworks.add(newArtwork);
     }
 
     async getArtworks(

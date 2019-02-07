@@ -11,6 +11,14 @@ const PEOPLE_ORDER_KEY_PATH_MAP: { [key in PeopleOrderKey]: string; } = {
     'name': 'name'
 };
 
+export interface NewPerson {
+    name: string;
+    about: string;
+    websiteUrl: string;
+    avatarUrl: string;
+    githubUrl: string;
+}
+
 export class PeopleRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -19,6 +27,11 @@ export class PeopleRepository {
     constructor(firebaseService: FirebaseRepository) {
         this.firebaseRepository = firebaseService;
         this.people = this.firebaseRepository.firestore.collection('people');
+    }
+
+    async createPerson(person: NewPerson) {
+        const newPerson: _.Omit<FirebasePerson, 'id'> = person;
+        await this.people.add(newPerson);
     }
 
     async getPeople(
