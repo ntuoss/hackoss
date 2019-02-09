@@ -11,6 +11,14 @@ const ORGANISATIONS_ORDER_KEY_PATH_MAP: { [key in OrganisationsOrderKey]: string
     'name': 'name'
 };
 
+export interface NewOrganisation {
+    name: string;
+    about: string;
+    avatarUrl: string;
+    githubUrl: string;
+    websiteUrl: string;
+}
+
 export class OrganisationsRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -19,6 +27,11 @@ export class OrganisationsRepository {
     constructor(firebaseService: FirebaseRepository) {
         this.firebaseRepository = firebaseService;
         this.organisations = this.firebaseRepository.firestore.collection('organisations');
+    }
+
+    async createOrganisation(organisation: NewOrganisation) {
+        const newOrganisation: _.Omit<FirebaseOrganisation, 'id'> = organisation;
+        await this.organisations.add(newOrganisation);
     }
 
     async getOrganisations(

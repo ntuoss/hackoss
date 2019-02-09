@@ -11,6 +11,15 @@ const LOCATIONS_ORDER_KEY_PATH_MAP: { [key in LocationsOrderKey]: string; } = {
     'name': 'name'
 };
 
+export interface NewLocation {
+    name: string;
+    seatingCapacity: number;
+    addressLine1: string;
+    addressLine2: string;
+    imageUrl: string;
+    eventbriteId: string;
+}
+
 export class LocationsRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -19,6 +28,11 @@ export class LocationsRepository {
     constructor(firebaseRepository: FirebaseRepository) {
         this.firebaseRepository = firebaseRepository;
         this.locations = this.firebaseRepository.firestore.collection('locations');
+    }
+
+    async createLocation(location: NewLocation) {
+        const newLocation: _.Omit<FirebaseLocation, 'id'> = location;
+        await this.locations.add(newLocation);
     }
 
     async getLocations(

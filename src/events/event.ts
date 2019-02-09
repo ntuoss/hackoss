@@ -19,8 +19,8 @@ export class Event {
     endTime: Date;
     githubUrl: string;
     status: EventStatus;
-    public: boolean;
-    external: boolean;
+    isPublic: boolean;
+    isExternal: boolean;
     hasFood: boolean;
     hasDrinks: boolean;
     remarks: string;

@@ -1,7 +1,7 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { PeopleRepository } from '../people/people.repository';
 import { LocationsRepository } from '../locations/locations.repository';
-import { Event, Speaker } from './event';
+import { Event, Speaker, Prerequisite, Dependency, EventStatus, Publication } from './event';
 import { FirebaseEvent, FirebaseEventSpeaker } from './event.firebase';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
@@ -15,6 +15,35 @@ const EVENTS_ORDER_KEY_PATH_MAP: { [key in EventsOrderKey]: string; } = {
     'date': 'startTime',
     'title': 'title'
 };
+
+export interface NewEvent {
+    tgif: number;
+    title: string;
+    endTime: Date;
+    tagline: string;
+    bannerId: string;
+    prerequisites: Prerequisite[];
+    description: string;
+    startTime: Date;
+    dependencies: Dependency[];
+    promotion: string;
+    venueId: string;
+    githubUrl: string;
+    status: EventStatus;
+    isPublic: boolean;
+    isExternal: boolean;
+    hasFood: boolean;
+    hasDrinks: boolean;
+    remarks: string;
+    eventbrite: Publication;
+    facebook: Publication;
+    speakers: {
+        personId: string;
+        organisationId: string;
+        position: string;
+    }[];
+}
+
 export class EventsRepository {
 
     private firebaseRepository: FirebaseRepository;
@@ -29,7 +58,8 @@ export class EventsRepository {
         peopleRepository: PeopleRepository,
         locationRepository: LocationsRepository,
         organisationsRepository: OrganisationsRepository,
-        artworksRepository: ArtworksRepository) {
+        artworksRepository: ArtworksRepository
+    ) {
 
         this.firebaseRepository = firebaseRepository;
         this.peopleRepository = peopleRepository;
@@ -38,6 +68,37 @@ export class EventsRepository {
         this.artworksRepository = artworksRepository;
 
         this.events = this.firebaseRepository.firestore.collection('events');
+    }
+
+    async createEvent(event: NewEvent) {
+        const newEvent: _.Omit<FirebaseEvent, 'id'> = {
+            tgif: event.tgif,
+            title: event.title,
+            description: event.description,
+            tagline: event.tagline,
+            prerequisites: event.prerequisites,
+            dependencies: event.dependencies,
+            promotion: event.promotion,
+            githubUrl: event.githubUrl,
+            status: event.status,
+            isPublic: event.isPublic,
+            isExternal: event.isExternal,
+            hasFood: event.hasFood,
+            hasDrinks: event.hasDrinks,
+            remarks: event.remarks,
+            eventbrite: event.eventbrite,
+            facebook: event.facebook,
+            startTime: firebase.firestore.Timestamp.fromDate(event.startTime),
+            endTime: firebase.firestore.Timestamp.fromDate(event.endTime),
+            banner: this.artworksRepository.artworks.doc(event.bannerId),
+            venue: this.locationRepository.locations.doc(event.venueId),
+            speakers: event.speakers.map<FirebaseEventSpeaker>(speaker => ({
+                person: this.peopleRepository.people.doc(speaker.personId),
+                organisation: this.organisationsRepository.organisations.doc(speaker.organisationId),
+                position: speaker.position
+            }))
+        };
+        this.events.add(newEvent);
     }
 
     async getEvents(
