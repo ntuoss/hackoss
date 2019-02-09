@@ -2,6 +2,7 @@ import { Location } from './location';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { FirebaseLocation } from './location.firebase';
 import { withId, QueryFilter, buildQuery } from '../utils';
+import { validators } from 'validate.js';
 import firebase from 'firebase';
 import _ from 'lodash';
 
@@ -28,6 +29,15 @@ export class LocationsRepository {
     constructor(firebaseRepository: FirebaseRepository) {
         this.firebaseRepository = firebaseRepository;
         this.locations = this.firebaseRepository.firestore.collection('locations');
+
+        validators.locationExists = (locationId: string) => new Promise(async (resolve) => {
+            const doc = await this.locations.doc(locationId).get();
+            if (doc.exists) {
+                resolve();
+            } else {
+                resolve(`Location with ID ${locationId} does not exist in Firebase`);
+            }
+        });
     }
 
     async createLocation(location: NewLocation) {

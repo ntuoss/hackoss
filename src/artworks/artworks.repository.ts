@@ -3,6 +3,7 @@ import { Artwork } from './artwork';
 import { FirebaseArtwork } from './artwork.firebase';
 import { PeopleRepository } from '../people/people.repository';
 import { withId, QueryFilter, buildQuery } from '../utils';
+import { validators } from 'validate.js';
 import firebase from 'firebase';
 import _ from 'lodash';
 
@@ -32,6 +33,15 @@ export class ArtworksRepository {
         this.firebaseRepository = firebaseService;
         this.peopleRepository = peopleRepository;
         this.artworks = this.firebaseRepository.firestore.collection('artworks');
+
+        validators.artworkExists = (artworkId: string) => new Promise(async (resolve) => {
+            const doc = await this.artworks.doc(artworkId).get();
+            if (doc.exists) {
+                resolve();
+            } else {
+                resolve(`Artwork with ID ${artworkId} does not exist in Firebase`);
+            }
+        });
     }
 
     async createArtwork(artwork: NewArtwork) {

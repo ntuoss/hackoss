@@ -53,4 +53,6 @@ export class Publication {
 }
 
 export type Proficiency = 'basic' | 'intermediate' | 'advanced';
+export const PROFICIENCIES: Proficiency[] = ['basic', 'intermediate', 'advanced'];
 export type EventStatus = 'draft' | 'live' | 'completed';
+export const EVENT_STATUSES: EventStatus[] = ['draft', 'live', 'completed'];

@@ -2,6 +2,7 @@ import { Person } from './person';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { FirebasePerson } from './person.firebase';
 import { withId, QueryFilter, buildQuery } from '../utils';
+import { validators } from 'validate.js';
 import firebase from 'firebase';
 import _ from 'lodash';
 
@@ -27,6 +28,15 @@ export class PeopleRepository {
     constructor(firebaseService: FirebaseRepository) {
         this.firebaseRepository = firebaseService;
         this.people = this.firebaseRepository.firestore.collection('people');
+
+        validators.personExists = (personId: string) => new Promise(async (resolve) => {
+            const doc = await this.people.doc(personId).get();
+            if (doc.exists) {
+                resolve();
+            } else {
+                resolve(`Person with ID ${personId} does not exist in Firebase`);
+            }
+        });
     }
 
     async createPerson(person: NewPerson) {
