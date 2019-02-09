@@ -10,5 +10,6 @@ compiled
 .awcache
 .rpt2_cache
 docs
+node_modules
 
 *.tgz
