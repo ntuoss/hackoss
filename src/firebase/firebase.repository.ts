@@ -1,4 +1,5 @@
 import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 import { FirebaseConfig } from './firebase.config';
 
 export class FirebaseRepository {
