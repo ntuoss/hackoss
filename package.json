@@ -1,6 +1,6 @@
 {
 	"name": "hackoss",
-	"version": "0.5.2",
+	"version": "0.4.3",
 	"description": "",
 	"keywords": [],
 	"main": "dist/hackoss.js",
