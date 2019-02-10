@@ -42,7 +42,7 @@ export declare class EventsRepository {
     private artworksRepository;
     events: firebase.firestore.CollectionReference;
     constructor(firebaseRepository: FirebaseRepository, peopleRepository: PeopleRepository, locationRepository: LocationsRepository, organisationsRepository: OrganisationsRepository, artworksRepository: ArtworksRepository);
-    createEvent(event: NewEvent): Promise<void>;
+    createEvent(event: NewEvent): Promise<firebase.firestore.DocumentReference>;
     getEvents(filters?: QueryFilter[], limit?: number, orderBy?: EventsOrderKey, direction?: firebase.firestore.OrderByDirection): Promise<Event[]>;
     getEvent(id: string): Promise<Event>;
     private toEvent;

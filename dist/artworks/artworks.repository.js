@@ -34,19 +34,13 @@ var ArtworksRepository = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var newArtwork;
             return tslib_1.__generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        newArtwork = {
-                            title: artwork.title,
-                            imageUrl: artwork.imageUrl,
-                            eventbriteId: artwork.eventbriteId,
-                            artist: this.peopleRepository.people.doc(artwork.artistId)
-                        };
-                        return [4 /*yield*/, this.artworks.add(newArtwork)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
+                newArtwork = {
+                    title: artwork.title,
+                    imageUrl: artwork.imageUrl,
+                    eventbriteId: artwork.eventbriteId,
+                    artist: this.peopleRepository.people.doc(artwork.artistId)
+                };
+                return [2 /*return*/, this.artworks.add(newArtwork)];
             });
         });
     };

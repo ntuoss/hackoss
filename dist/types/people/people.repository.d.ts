@@ -14,7 +14,7 @@ export declare class PeopleRepository {
     private firebaseRepository;
     people: firebase.firestore.CollectionReference;
     constructor(firebaseService: FirebaseRepository);
-    createPerson(person: NewPerson): Promise<void>;
+    createPerson(person: NewPerson): Promise<firebase.firestore.DocumentReference>;
     getPeople(filters?: QueryFilter[], limit?: number, orderBy?: PeopleOrderKey, direction?: firebase.firestore.OrderByDirection): Promise<Person[]>;
     getPerson(id: string): Promise<Person>;
     private toPerson;

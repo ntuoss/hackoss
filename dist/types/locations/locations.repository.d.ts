@@ -15,7 +15,7 @@ export declare class LocationsRepository {
     private firebaseRepository;
     locations: firebase.firestore.CollectionReference;
     constructor(firebaseRepository: FirebaseRepository);
-    createLocation(location: NewLocation): Promise<void>;
+    createLocation(location: NewLocation): Promise<firebase.firestore.DocumentReference>;
     getLocations(filters?: QueryFilter[], limit?: number, orderBy?: LocationsOrderKey, direction?: firebase.firestore.OrderByDirection): Promise<Location[]>;
     getLocation(id: string): Promise<Location>;
     private toLocation;

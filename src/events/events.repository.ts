@@ -108,7 +108,7 @@ export class EventsRepository {
                 position: speaker.position
             }))
         };
-        this.events.add(newEvent);
+        return this.events.add(newEvent);
     }
 
     async getEvents(

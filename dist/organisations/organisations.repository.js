@@ -33,14 +33,8 @@ var OrganisationsRepository = /** @class */ (function () {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
             var newOrganisation;
             return tslib_1.__generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        newOrganisation = organisation;
-                        return [4 /*yield*/, this.organisations.add(newOrganisation)];
-                    case 1:
-                        _a.sent();
-                        return [2 /*return*/];
-                }
+                newOrganisation = organisation;
+                return [2 /*return*/, this.organisations.add(newOrganisation)];
             });
         });
     };

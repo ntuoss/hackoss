@@ -51,7 +51,7 @@ export class ArtworksRepository {
             eventbriteId: artwork.eventbriteId,
             artist: this.peopleRepository.people.doc(artwork.artistId)
         };
-        await this.artworks.add(newArtwork);
+        return this.artworks.add(newArtwork);
     }
 
     async getArtworks(

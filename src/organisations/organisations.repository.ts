@@ -41,7 +41,7 @@ export class OrganisationsRepository {
 
     async createOrganisation(organisation: NewOrganisation) {
         const newOrganisation: _.Omit<FirebaseOrganisation, 'id'> = organisation;
-        await this.organisations.add(newOrganisation);
+        return this.organisations.add(newOrganisation);
     }
 
     async getOrganisations(

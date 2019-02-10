@@ -42,7 +42,7 @@ export class LocationsRepository {
 
     async createLocation(location: NewLocation) {
         const newLocation: _.Omit<FirebaseLocation, 'id'> = location;
-        await this.locations.add(newLocation);
+        return this.locations.add(newLocation);
     }
 
     async getLocations(

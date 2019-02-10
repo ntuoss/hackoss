@@ -14,7 +14,7 @@ export declare class OrganisationsRepository {
     private firebaseRepository;
     organisations: firebase.firestore.CollectionReference;
     constructor(firebaseService: FirebaseRepository);
-    createOrganisation(organisation: NewOrganisation): Promise<void>;
+    createOrganisation(organisation: NewOrganisation): Promise<firebase.firestore.DocumentReference>;
     getOrganisations(filters?: QueryFilter[], limit?: number, orderBy?: OrganisationsOrderKey, direction?: firebase.firestore.OrderByDirection): Promise<Organisation[]>;
     getOrganisation(id: string): Promise<Organisation>;
     private toOrganisation;

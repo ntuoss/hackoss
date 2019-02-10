@@ -41,7 +41,7 @@ export class PeopleRepository {
 
     async createPerson(person: NewPerson) {
         const newPerson: _.Omit<FirebasePerson, 'id'> = person;
-        await this.people.add(newPerson);
+        return this.people.add(newPerson);
     }
 
     async getPeople(

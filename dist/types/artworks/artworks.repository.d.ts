@@ -15,7 +15,7 @@ export declare class ArtworksRepository {
     private peopleRepository;
     artworks: firebase.firestore.CollectionReference;
     constructor(firebaseService: FirebaseRepository, peopleRepository: PeopleRepository);
-    createArtwork(artwork: NewArtwork): Promise<void>;
+    createArtwork(artwork: NewArtwork): Promise<firebase.firestore.DocumentReference>;
     getArtworks(filters?: QueryFilter[], limit?: number, orderBy?: ArtworksOrderKey, direction?: firebase.firestore.OrderByDirection): Promise<Artwork[]>;
     getArtwork(id: string): Promise<Artwork>;
     private toArtwork;

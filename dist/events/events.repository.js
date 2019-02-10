@@ -68,8 +68,7 @@ var EventsRepository = /** @class */ (function () {
                         position: speaker.position
                     }); })
                 };
-                this.events.add(newEvent);
-                return [2 /*return*/];
+                return [2 /*return*/, this.events.add(newEvent)];
             });
         });
     };
