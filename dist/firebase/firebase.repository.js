@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var firebase = require("firebase");
+var firebase = require("firebase/app");
 var FirebaseRepository = /** @class */ (function () {
     function FirebaseRepository(config) {
         this.init(config);
