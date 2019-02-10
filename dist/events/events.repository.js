@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var utils_1 = require("../utils");
 var validate_js_1 = require("validate.js");
-var firebase_1 = require("firebase");
+var firebase = require("firebase/app");
 var lodash_1 = require("lodash");
 var EVENTS_ORDER_KEY_PATH_MAP = {
     'date': 'startTime',
@@ -58,8 +58,8 @@ var EventsRepository = /** @class */ (function () {
                     remarks: event.remarks,
                     eventbrite: event.eventbrite,
                     facebook: event.facebook,
-                    startTime: firebase_1.default.firestore.Timestamp.fromDate(event.startTime),
-                    endTime: firebase_1.default.firestore.Timestamp.fromDate(event.endTime),
+                    startTime: firebase.firestore.Timestamp.fromDate(event.startTime),
+                    endTime: firebase.firestore.Timestamp.fromDate(event.endTime),
                     banner: this.artworksRepository.artworks.doc(event.bannerId),
                     venue: this.locationRepository.locations.doc(event.venueId),
                     speakers: event.speakers.map(function (speaker) { return ({

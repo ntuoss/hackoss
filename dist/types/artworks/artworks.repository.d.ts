@@ -2,7 +2,7 @@ import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Artwork } from './artwork';
 import { PeopleRepository } from '../people/people.repository';
 import { QueryFilter } from '../utils';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
 export declare type ArtworksOrderKey = 'title';
 export interface NewArtwork {
     title: string;

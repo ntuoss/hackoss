@@ -4,7 +4,7 @@ import { FirebaseArtwork } from './artwork.firebase';
 import { PeopleRepository } from '../people/people.repository';
 import { withId, QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import _ from 'lodash';
 
 export type ArtworksOrderKey = 'title';

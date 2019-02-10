@@ -5,7 +5,7 @@ import { Event, Prerequisite, Dependency, EventStatus, Publication } from './eve
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
 import { QueryFilter } from '../utils';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
 export declare type EventsOrderKey = 'date' | 'title';
 export interface NewEvent {
     tgif: number;

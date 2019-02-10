@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var utils_1 = require("../utils");
 var validate_js_1 = require("validate.js");
-var lodash_1 = require("lodash");
 var ARTWORKS_ORDER_KEY_PATH_MAP = {
     'title': 'title'
 };
@@ -66,7 +65,13 @@ var ArtworksRepository = /** @class */ (function () {
                         return [4 /*yield*/, utils_1.buildQuery(this.artworks, limit, orderByPath, direction, filters).get()];
                     case 1:
                         results = _a.sent();
-                        return [2 /*return*/, Promise.all(results.docs.map(function (doc) { return _this.toArtwork(utils_1.withId(doc.data(), doc.id)); }))];
+                        // @ts-ignore
+                        return [2 /*return*/, Promise.all(results.docs.map(function (doc) { return tslib_1.__awaiter(_this, void 0, void 0, function () { return tslib_1.__generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0: return [4 /*yield*/, this.toArtwork(tslib_1.__assign({}, doc.data(), { id: doc.id }))];
+                                    case 1: return [2 /*return*/, _a.sent()];
+                                }
+                            }); }); }))];
                 }
             });
         });
@@ -81,24 +86,21 @@ var ArtworksRepository = /** @class */ (function () {
                         return [4 /*yield*/, ref.get()];
                     case 1:
                         doc = _a.sent();
-                        return [2 /*return*/, this.toArtwork(utils_1.withId(doc.data(), id))];
+                        // @ts-ignore
+                        return [2 /*return*/, this.toArtwork(tslib_1.__assign({}, doc.data(), { id: id }))];
                 }
             });
         });
     };
     ArtworksRepository.prototype.toArtwork = function (data) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var artist, _a, _b, _c, _d;
-            return tslib_1.__generator(this, function (_e) {
-                switch (_e.label) {
-                    case 0:
-                        artist = this.peopleRepository.getPerson(data.artist.id);
-                        _b = (_a = lodash_1.default).assign;
-                        _c = [data];
-                        _d = {};
-                        return [4 /*yield*/, artist];
-                    case 1: return [2 /*return*/, _b.apply(_a, _c.concat([(_d.artist = _e.sent(),
-                                _d)]))];
+            var artist;
+            return tslib_1.__generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.peopleRepository.getPerson(data.artist.id)];
+                    case 1:
+                        artist = _a.sent();
+                        return [2 /*return*/, tslib_1.__assign({}, data, { artist: artist })];
                 }
             });
         });
