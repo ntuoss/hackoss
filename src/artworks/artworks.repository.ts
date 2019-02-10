@@ -62,20 +62,20 @@ export class ArtworksRepository {
     ): Promise<Artwork[]> {
         const orderByPath = ARTWORKS_ORDER_KEY_PATH_MAP[orderBy];
         const results = await buildQuery(this.artworks, limit, orderByPath, direction, filters).get();
-        return Promise.all(results.docs.map(doc => this.toArtwork(withId<FirebaseArtwork>(doc.data(), doc.id))));
+        // @ts-ignore
+        return Promise.all(results.docs.map(async doc => await this.toArtwork({ ...doc.data(), id: doc.id })));
     }
 
     async getArtwork(id: string): Promise<Artwork> {
         const ref = this.artworks.doc(id);
         const doc = await ref.get();
-        return this.toArtwork(withId<FirebaseArtwork>(doc.data(), id));
+        // @ts-ignore
+        return this.toArtwork({ ...doc.data(), id });
     }
 
     private async toArtwork(data: FirebaseArtwork): Promise<Artwork> {
-        const artist = this.peopleRepository.getPerson(data.artist.id);
-        return _.assign(data, {
-            artist: await artist
-        });
+        const artist = await this.peopleRepository.getPerson(data.artist.id);
+        return { ...data, artist };
     }
 
 }
