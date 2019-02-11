@@ -8,7 +8,7 @@ export class Event {
     tgif: number;
     title: string;
     speakers: Speaker[];
-    tagline: string;
+    tagline?: string;
     banner: Artwork;
     description: string;
     prerequisites: Prerequisite[];
@@ -17,15 +17,15 @@ export class Event {
     venue: Location;
     startTime: Date;
     endTime: Date;
-    githubUrl: string;
+    githubUrl?: string;
     status: EventStatus;
     isPublic: boolean;
     isExternal: boolean;
     hasFood: boolean;
     hasDrinks: boolean;
-    remarks: string;
-    eventbrite: Publication;
-    facebook: Publication;
+    remarks?: string;
+    eventbrite?: Publication;
+    facebook?: Publication;
 }
 
 export class Speaker {

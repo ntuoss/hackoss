@@ -5,5 +5,5 @@ export class Artwork {
     title: string;
     imageUrl: string;
     artist: Person;
-    eventbriteId: string;
+    eventbriteId?: string;
 }

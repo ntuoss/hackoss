@@ -11,6 +11,6 @@ export const ARTWORK_CONSTRAINTS = {
         personExists: true
     },
     eventbriteId: {
-        presence: true
+        presence: false
     }
 };

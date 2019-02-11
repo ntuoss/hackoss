@@ -1,9 +1,9 @@
 export class Location {
     id: string;
     name: string;
-    imageUrl: string;
+    imageUrl?: string;
     addressLine1: string;
-    addressLine2: string;
+    addressLine2?: string;
     seatingCapacity: number;
-    eventbriteId: string;
+    eventbriteId?: string;
 }

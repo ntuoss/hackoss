@@ -17,7 +17,7 @@ export interface NewArtwork {
     title: string;
     imageUrl: string;
     artistId: string;
-    eventbriteId: string;
+    eventbriteId?: string;
 }
 
 export class ArtworksRepository {

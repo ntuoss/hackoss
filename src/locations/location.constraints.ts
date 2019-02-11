@@ -13,13 +13,13 @@ export const LOCATION_CONSTRAINTS = {
         presence: true
     },
     addressLine2: {
-        presence: true
+        presence: false
     },
     imageUrl: {
-        presence: true,
+        presence: false,
         url: true
     },
     eventbriteId: {
-        presence: true
+        presence: false
     },
 };

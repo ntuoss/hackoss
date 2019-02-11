@@ -15,9 +15,9 @@ const ORGANISATIONS_ORDER_KEY_PATH_MAP: { [key in OrganisationsOrderKey]: string
 export interface NewOrganisation {
     name: string;
     about: string;
-    avatarUrl: string;
-    githubUrl: string;
-    websiteUrl: string;
+    avatarUrl?: string;
+    githubUrl?: string;
+    websiteUrl?: string;
 }
 
 export class OrganisationsRepository {

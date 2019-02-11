@@ -1,7 +1,7 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { PeopleRepository } from '../people/people.repository';
 import { LocationsRepository } from '../locations/locations.repository';
-import { Event, Speaker, Prerequisite, Dependency, EventStatus, Publication } from './event';
+import { Event, Speaker, Prerequisite, Dependency, EventStatus, Publication, EVENT_STATUSES } from './event';
 import { FirebaseEvent, FirebaseEventSpeaker } from './event.firebase';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
@@ -21,23 +21,23 @@ export interface NewEvent {
     tgif: number;
     title: string;
     endTime: Date;
-    tagline: string;
+    tagline?: string;
     bannerId: string;
-    prerequisites: Prerequisite[];
+    prerequisites?: Prerequisite[];
     description: string;
     startTime: Date;
-    dependencies: Dependency[];
+    dependencies?: Dependency[];
     promotion: string;
     venueId: string;
-    githubUrl: string;
-    status: EventStatus;
+    githubUrl?: string;
+    status?: EventStatus;
     isPublic: boolean;
     isExternal: boolean;
     hasFood: boolean;
     hasDrinks: boolean;
-    remarks: string;
-    eventbrite: Publication;
-    facebook: Publication;
+    remarks?: string;
+    eventbrite?: Publication;
+    facebook?: Publication;
     speakers: {
         personId: string;
         organisationId: string;
@@ -86,11 +86,11 @@ export class EventsRepository {
             title: event.title,
             description: event.description,
             tagline: event.tagline,
-            prerequisites: event.prerequisites,
-            dependencies: event.dependencies,
+            prerequisites: event.prerequisites || [],
+            dependencies: event.dependencies || [],
             promotion: event.promotion,
             githubUrl: event.githubUrl,
-            status: event.status,
+            status: event.status || 'draft',
             isPublic: event.isPublic,
             isExternal: event.isExternal,
             hasFood: event.hasFood,
