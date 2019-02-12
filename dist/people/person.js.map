@@ -1,1 +1,0 @@
-{"version":3,"file":"person.js","sourceRoot":"","sources":["../../src/people/person.ts"],"names":[],"mappings":";;AAAA;IAAA;IAOA,CAAC;IAAD,aAAC;AAAD,CAAC,AAPD,IAOC;AAPY,wBAAM","sourcesContent":["export class Person {\n  id: string;\n  name: string;\n  about: string;\n  githubUrl: string;\n  websiteUrl: string;\n  avatarUrl: string;\n}\n"]}

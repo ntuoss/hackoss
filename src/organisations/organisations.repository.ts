@@ -1,10 +1,9 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Organisation } from './organisation';
 import { FirebaseOrganisation } from './organisation.firebase';
-import { withId, QueryFilter, buildQuery } from '../utils';
+import { QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
-import _ from 'lodash';
+import firebase from 'firebase/app';
 
 export type OrganisationsOrderKey = 'name';
 
@@ -39,10 +38,8 @@ export class OrganisationsRepository {
         });
     }
 
-    async createOrganisation(organisation: NewOrganisation) {
-        const newOrganisation: _.Omit<FirebaseOrganisation, 'id'> = organisation;
-        await this.organisations.add(newOrganisation);
-    }
+    createOrganisation = (organisation: NewOrganisation) =>
+        this.organisations.add(organisation)
 
     async getOrganisations(
         filters: QueryFilter[] = [],
@@ -52,13 +49,13 @@ export class OrganisationsRepository {
     ): Promise<Organisation[]> {
         const orderByPath = ORGANISATIONS_ORDER_KEY_PATH_MAP[orderBy];
         const results = await buildQuery(this.organisations, limit, orderByPath, direction, filters).get();
-        return results.docs.map(doc => this.toOrganisation(withId<FirebaseOrganisation>(doc.data(), doc.id)));
+        return results.docs.map(doc => this.toOrganisation({ ...doc.data() as FirebaseOrganisation, id: doc.id }));
     }
 
     async getOrganisation(id: string): Promise<Organisation> {
         const ref = this.organisations.doc(id);
         const doc = await ref.get();
-        return this.toOrganisation(withId<FirebaseOrganisation>(doc.data(), id));
+        return this.toOrganisation({ ...doc.data() as FirebaseOrganisation, id });
     }
 
     private toOrganisation(data: FirebaseOrganisation): Organisation {

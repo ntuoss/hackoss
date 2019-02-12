@@ -1,10 +1,9 @@
 import { Person } from './person';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { FirebasePerson } from './person.firebase';
-import { withId, QueryFilter, buildQuery } from '../utils';
+import { QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
-import _ from 'lodash';
+import firebase from 'firebase/app';
 
 export type PeopleOrderKey = 'name';
 
@@ -39,10 +38,8 @@ export class PeopleRepository {
         });
     }
 
-    async createPerson(person: NewPerson) {
-        const newPerson: _.Omit<FirebasePerson, 'id'> = person;
-        await this.people.add(newPerson);
-    }
+    createPerson = (person: NewPerson) =>
+        this.people.add(person)
 
     async getPeople(
         filters: QueryFilter[] = [],
@@ -52,13 +49,13 @@ export class PeopleRepository {
     ): Promise<Person[]> {
         const orderByPath = PEOPLE_ORDER_KEY_PATH_MAP[orderBy];
         const results = await buildQuery(this.people, limit, orderByPath, direction, filters).get();
-        return results.docs.map(doc => this.toPerson(withId<FirebasePerson>(doc.data(), doc.id)));
+        return results.docs.map(doc => this.toPerson({ ...doc.data() as FirebasePerson, id: doc.id }));
     }
 
     async getPerson(id: string): Promise<Person> {
         const ref = this.people.doc(id);
         const doc = await ref.get();
-        return this.toPerson(withId<FirebasePerson>(doc.data(), id));
+        return this.toPerson({ ...doc.data() as FirebasePerson, id });
     }
 
     private toPerson(data: FirebasePerson): Person {
