@@ -43,8 +43,10 @@ export class ArtworksRepository {
         });
     }
 
-    createArtwork = (artwork: NewArtwork) =>
-        this.artworks.add({...artwork, artist: this.peopleRepository.people.doc(artwork.artistId)})
+    createArtwork = (artwork: NewArtwork) => {
+        const { artistId, ...others } = artwork;
+        return this.artworks.add({...others, artist: this.peopleRepository.people.doc(artistId)});
+    }
 
     async getArtworks(
         filters: QueryFilter[] = [],

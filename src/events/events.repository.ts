@@ -79,19 +79,21 @@ export class EventsRepository {
         });
     }
 
-    createEvent = (event: NewEvent) =>
-        this.events.add({
+    createEvent = (event: NewEvent) => {
+        const { bannerId , venueId, ...others } = event;
+        return this.events.add({
             ...event,
             startTime: firebase.firestore.Timestamp.fromDate(event.startTime),
             endTime: firebase.firestore.Timestamp.fromDate(event.endTime),
-            banner: this.artworksRepository.artworks.doc(event.bannerId),
-            venue: this.locationRepository.locations.doc(event.venueId),
+            banner: this.artworksRepository.artworks.doc(bannerId),
+            venue: this.locationRepository.locations.doc(venueId),
             speakers: event.speakers.map<FirebaseEventSpeaker>(speaker => ({
-                ...speaker,
+                position: speaker.position,
                 person: this.peopleRepository.people.doc(speaker.personId),
                 organisation: this.organisationsRepository.organisations.doc(speaker.organisationId),
             }))
-        })
+        });
+    }
 
     async getEvents(
         filters: QueryFilter[] = [],
