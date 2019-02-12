@@ -1,6 +1,6 @@
 {
 	"name": "hackoss",
-	"version": "0.4.3",
+	"version": "0.4.4",
 	"description": "",
 	"keywords": [],
 	"main": "dist/hackoss.js",
@@ -32,7 +32,6 @@
 		"validate.js": "^0.12.0"
 	},
 	"devDependencies": {
-		"@types/lodash": "^4.14.120",
 		"bump-file": "2.0.0",
 		"ts-node": "~7.0.1",
 		"tslint": "~5.12.1",
