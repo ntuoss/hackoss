@@ -6,15 +6,15 @@ export const ORGANISATION_CONSTRAINTS = {
         presence: true
     },
     websiteUrl: {
-        presence: true,
+        presence: false,
         url: true
     },
     avatarUrl: {
-        presence: true,
+        presence: false,
         url: true
     },
     githubUrl: {
-        presence: true,
+        presence: false,
         url: true
     }
 };

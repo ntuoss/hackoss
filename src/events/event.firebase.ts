@@ -5,7 +5,7 @@ export class FirebaseEvent {
     tgif: number;
     title: string;
     speakers: FirebaseEventSpeaker[];
-    tagline: string;
+    tagline?: string;
     banner: firebase.firestore.DocumentReference;
     description: string;
     prerequisites: Prerequisite[];
@@ -14,15 +14,15 @@ export class FirebaseEvent {
     venue: firebase.firestore.DocumentReference;
     startTime: firebase.firestore.Timestamp;
     endTime: firebase.firestore.Timestamp;
-    githubUrl: string;
+    githubUrl?: string;
     status: EventStatus;
     isPublic: boolean;
     isExternal: boolean;
     hasFood: boolean;
     hasDrinks: boolean;
-    remarks: string;
-    eventbrite: Publication;
-    facebook: Publication;
+    remarks?: string;
+    eventbrite?: Publication;
+    facebook?: Publication;
 }
 
 export class FirebaseEventSpeaker {

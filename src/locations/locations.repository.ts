@@ -15,9 +15,9 @@ export interface NewLocation {
     name: string;
     seatingCapacity: number;
     addressLine1: string;
-    addressLine2: string;
-    imageUrl: string;
-    eventbriteId: string;
+    addressLine2?: string;
+    imageUrl?: string;
+    eventbriteId?: string;
 }
 
 export class LocationsRepository {

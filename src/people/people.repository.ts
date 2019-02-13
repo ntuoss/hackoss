@@ -14,9 +14,9 @@ const PEOPLE_ORDER_KEY_PATH_MAP: { [key in PeopleOrderKey]: string; } = {
 export interface NewPerson {
     name: string;
     about: string;
-    websiteUrl: string;
-    avatarUrl: string;
-    githubUrl: string;
+    websiteUrl?: string;
+    avatarUrl?: string;
+    githubUrl?: string;
 }
 
 export class PeopleRepository {

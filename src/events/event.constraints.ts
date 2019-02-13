@@ -74,7 +74,7 @@ export const EVENT_CONSTRAINTS = {
         }
     },
     tagline: {
-        presence: true
+        presence: false
     },
     bannerId: {
         presence: true,
@@ -115,7 +115,7 @@ export const EVENT_CONSTRAINTS = {
         }
     },
     githubUrl: {
-        presence: true,
+        presence: false,
         url: true
     },
     status: {
@@ -135,14 +135,16 @@ export const EVENT_CONSTRAINTS = {
         presence: true
     },
     remarks: {
-        presence: true
+        presence: false
     },
     eventbrite: {
+        presence: false,
         object: {
             constraints: PUBLICATION_CONSTRAINTS
         }
     },
     facebook: {
+        presence: false,
         object: {
             constraints: PUBLICATION_CONSTRAINTS
         }
