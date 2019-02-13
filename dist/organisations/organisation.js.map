@@ -1,1 +1,0 @@
-{"version":3,"file":"organisation.js","sourceRoot":"","sources":["../../src/organisations/organisation.ts"],"names":[],"mappings":";;AAAA;IAAA;IAOA,CAAC;IAAD,mBAAC;AAAD,CAAC,AAPD,IAOC;AAPY,oCAAY","sourcesContent":["export class Organisation {\n    id: string;\n    name: string;\n    about: string;\n    githubUrl: string;\n    websiteUrl: string;\n    avatarUrl: string;\n}\n"]}

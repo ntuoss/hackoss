@@ -2,10 +2,9 @@ import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Artwork } from './artwork';
 import { FirebaseArtwork } from './artwork.firebase';
 import { PeopleRepository } from '../people/people.repository';
-import { withId, QueryFilter, buildQuery } from '../utils';
+import { QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
-import _ from 'lodash';
+import firebase from 'firebase/app';
 
 export type ArtworksOrderKey = 'title';
 
@@ -44,14 +43,9 @@ export class ArtworksRepository {
         });
     }
 
-    async createArtwork(artwork: NewArtwork) {
-        const newArtwork: _.Omit<FirebaseArtwork, 'id'> = {
-            title: artwork.title,
-            imageUrl: artwork.imageUrl,
-            eventbriteId: artwork.eventbriteId,
-            artist: this.peopleRepository.people.doc(artwork.artistId)
-        };
-        await this.artworks.add(newArtwork);
+    createArtwork = (artwork: NewArtwork) => {
+        const { artistId, ...others } = artwork;
+        return this.artworks.add({...others, artist: this.peopleRepository.people.doc(artistId)});
     }
 
     async getArtworks(
@@ -62,20 +56,18 @@ export class ArtworksRepository {
     ): Promise<Artwork[]> {
         const orderByPath = ARTWORKS_ORDER_KEY_PATH_MAP[orderBy];
         const results = await buildQuery(this.artworks, limit, orderByPath, direction, filters).get();
-        return Promise.all(results.docs.map(doc => this.toArtwork(withId<FirebaseArtwork>(doc.data(), doc.id))));
+        return Promise.all(results.docs.map(doc => this.toArtwork({...doc.data() as FirebaseArtwork, id: doc.id})));
     }
 
     async getArtwork(id: string): Promise<Artwork> {
         const ref = this.artworks.doc(id);
         const doc = await ref.get();
-        return this.toArtwork(withId<FirebaseArtwork>(doc.data(), id));
+        return this.toArtwork({ ...doc.data() as FirebaseArtwork, id });
     }
 
     private async toArtwork(data: FirebaseArtwork): Promise<Artwork> {
-        const artist = this.peopleRepository.getPerson(data.artist.id);
-        return _.assign(data, {
-            artist: await artist
-        });
+        const artist = await this.peopleRepository.getPerson(data.artist.id);
+        return {...data, artist};
     }
 
 }

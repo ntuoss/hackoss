@@ -1,1 +1,0 @@
-{"version":3,"file":"person.firebase.js","sourceRoot":"","sources":["../../src/people/person.firebase.ts"],"names":[],"mappings":";;AAAA;IAAA;IAOA,CAAC;IAAD,qBAAC;AAAD,CAAC,AAPD,IAOC;AAPY,wCAAc","sourcesContent":["export class FirebasePerson {\n    id: string;\n    name: string;\n    about: string;\n    githubUrl: string;\n    websiteUrl: string;\n    avatarUrl: string;\n}\n"]}

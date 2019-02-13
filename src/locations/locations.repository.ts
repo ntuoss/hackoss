@@ -1,10 +1,9 @@
 import { Location } from './location';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { FirebaseLocation } from './location.firebase';
-import { withId, QueryFilter, buildQuery } from '../utils';
+import { QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
-import _ from 'lodash';
+import firebase from 'firebase/app';
 
 export type LocationsOrderKey = 'name';
 
@@ -40,10 +39,8 @@ export class LocationsRepository {
         });
     }
 
-    async createLocation(location: NewLocation) {
-        const newLocation: _.Omit<FirebaseLocation, 'id'> = location;
-        await this.locations.add(newLocation);
-    }
+    createLocation = (location: NewLocation) =>
+        this.locations.add(location)
 
     async getLocations(
         filters: QueryFilter[] = [],
@@ -53,17 +50,15 @@ export class LocationsRepository {
     ): Promise<Location[]> {
         const orderByPath = LOCATIONS_ORDER_KEY_PATH_MAP[orderBy];
         const results = await buildQuery(this.locations, limit, orderByPath, direction, filters).get();
-        return results.docs.map(doc => this.toLocation(withId<FirebaseLocation>(doc.data(), doc.id)));
+        return results.docs.map(doc => this.toLocation({ ...doc.data() as FirebaseLocation, id: doc.id }));
     }
 
     async getLocation(id: string): Promise<Location> {
         const ref = this.locations.doc(id);
         const doc = await ref.get();
-        return this.toLocation(withId<FirebaseLocation>(doc.data(), id));
+        return this.toLocation({ ...doc.data() as FirebaseLocation, id });
     }
 
-    private toLocation(data: FirebaseLocation): Location {
-        return data;
-    }
+    private toLocation = (data: FirebaseLocation): Location => data;
 
 }

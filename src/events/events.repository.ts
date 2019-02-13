@@ -5,10 +5,9 @@ import { Event, Speaker, Prerequisite, Dependency, EventStatus, Publication, EVE
 import { FirebaseEvent, FirebaseEventSpeaker } from './event.firebase';
 import { OrganisationsRepository } from '../organisations/organisations.repository';
 import { ArtworksRepository } from '../artworks/artworks.repository';
-import { withId, QueryFilter, buildQuery } from '../utils';
+import { QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
-import _ from 'lodash';
+import firebase from 'firebase/app';
 
 export type EventsOrderKey = 'date' | 'title';
 
@@ -80,35 +79,21 @@ export class EventsRepository {
         });
     }
 
-    async createEvent(event: NewEvent) {
-        const newEvent: _.Omit<FirebaseEvent, 'id'> = {
-            tgif: event.tgif,
-            title: event.title,
-            description: event.description,
-            tagline: event.tagline,
-            prerequisites: event.prerequisites || [],
-            dependencies: event.dependencies || [],
-            promotion: event.promotion,
-            githubUrl: event.githubUrl,
-            status: event.status || 'draft',
-            isPublic: event.isPublic,
-            isExternal: event.isExternal,
-            hasFood: event.hasFood,
-            hasDrinks: event.hasDrinks,
-            remarks: event.remarks,
-            eventbrite: event.eventbrite,
-            facebook: event.facebook,
+
+    createEvent = (event: NewEvent) => {
+        const { bannerId , venueId, ...others } = event;
+        return this.events.add({
+            ...event,
             startTime: firebase.firestore.Timestamp.fromDate(event.startTime),
             endTime: firebase.firestore.Timestamp.fromDate(event.endTime),
-            banner: this.artworksRepository.artworks.doc(event.bannerId),
-            venue: this.locationRepository.locations.doc(event.venueId),
+            banner: this.artworksRepository.artworks.doc(bannerId),
+            venue: this.locationRepository.locations.doc(venueId),
             speakers: event.speakers.map<FirebaseEventSpeaker>(speaker => ({
+                position: speaker.position,
                 person: this.peopleRepository.people.doc(speaker.personId),
                 organisation: this.organisationsRepository.organisations.doc(speaker.organisationId),
-                position: speaker.position
             }))
-        };
-        this.events.add(newEvent);
+        });
     }
 
     async getEvents(
@@ -119,13 +104,13 @@ export class EventsRepository {
     ): Promise<Event[]> {
         const orderByPath = EVENTS_ORDER_KEY_PATH_MAP[orderBy];
         const results = await buildQuery(this.events, limit, orderByPath, direction, filters).get();
-        return Promise.all(results.docs.map(doc => this.toEvent(withId<FirebaseEvent>(doc.data(), doc.id))));
+        return Promise.all(results.docs.map(doc => this.toEvent({ ...doc.data() as FirebaseEvent, id: doc.id })));
     }
 
     async getEvent(id: string): Promise<Event> {
         const ref = this.events.doc(id);
         const doc = await ref.get();
-        return this.toEvent(withId<FirebaseEvent>(doc.data(), id));
+        return this.toEvent({ ...doc.data() as FirebaseEvent, id });
     }
 
     private async toEvent(data: FirebaseEvent): Promise<Event> {
@@ -143,12 +128,13 @@ export class EventsRepository {
         const banner = this.artworksRepository.getArtwork(data.banner.id);
         const venue = this.locationRepository.getLocation(data.venue.id);
 
-        return _.assign(data, {
+        return {
+            ...data,
             speakers: await Promise.all(speakers),
             banner: await banner,
             venue: await venue,
             startTime: data.startTime.toDate(),
             endTime: data.endTime.toDate()
-        });
+        };
     }
 }
