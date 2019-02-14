@@ -1,23 +1,23 @@
 export const LOCATION_CONSTRAINTS = {
     name: {
-        presence: true
+        presence: { allowEmpty: false }
     },
     seatingCapacity: {
-        presence: true,
+        presence: { allowEmpty: false },
         numericality: {
             onlyInteger: true,
             greaterThan: 0
         }
     },
     addressLine1: {
-        presence: true
+        presence: { allowEmpty: false }
     },
     addressLine2: {
         presence: false
     },
     imageUrl: {
         presence: false,
-        url: true
+        urlAllowEmpty: true
     },
     eventbriteId: {
         presence: false
