@@ -1,20 +1,20 @@
 export const PERSON_CONSTRAINTS = {
     name: {
-        presence: { allowEmpty: false }
+        presence: true
     },
     about: {
-        presence: { allowEmpty: false }
+        presence: true
     },
     websiteUrl: {
         presence: false,
-        urlAllowEmpty: true
+        url: true
     },
     avatarUrl: {
         presence: false,
-        urlAllowEmpty: true
+        url: true
     },
     githubUrl: {
         presence: false,
-        urlAllowEmpty: true
+        url: true
     }
 };

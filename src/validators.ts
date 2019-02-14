@@ -34,10 +34,3 @@ validators.array = (value: any[], options: ArrayValidatorOptions, key: string, a
 validators.object = (value: any, options: MapValidatorOptions, key: string, attributes: any) => {
     return validate(value, options.constraints);
 };
-
-validators.urlAllowEmpty = (values: any, ...others: any[]) => {
-    if (!values) return;
-    return validators.url(values, ...others);
-};
-
-export default validate;

@@ -1,13 +1,14 @@
 export const ARTWORK_CONSTRAINTS = {
     title: {
-        presence: { allowEmpty: false }
+        presence: true
     },
     imageUrl: {
-        presence: { allowEmpty: false },
+        presence: true,
         url: true
     },
     artistId: {
-        presence: { allowEmpty: false },
+        presence: true,
+        personExists: true
     },
     eventbriteId: {
         presence: false
