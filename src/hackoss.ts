@@ -22,3 +22,4 @@ export * from './firebase/firebase.config';
 export * from './firebase/firebase.repository';
 
 export * from './utils';
+export * from './validators';
