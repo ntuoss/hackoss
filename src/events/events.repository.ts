@@ -83,7 +83,7 @@ export class EventsRepository {
     createEvent = (event: NewEvent) => {
         const { bannerId , venueId, ...others } = event;
         return this.events.add({
-            ...event,
+            ...others,
             startTime: firebase.firestore.Timestamp.fromDate(event.startTime),
             endTime: firebase.firestore.Timestamp.fromDate(event.endTime),
             banner: this.artworksRepository.artworks.doc(bannerId),
