@@ -38,8 +38,10 @@ export class OrganisationsRepository {
         });
     }
 
-    createOrganisation = (organisation: NewOrganisation) =>
-        this.organisations.add(organisation)
+    async createOrganisation(organisation: NewOrganisation): Promise<string> {
+        const result = await this.organisations.add(organisation);
+        return result.id;
+    }
 
     async getOrganisations(
         filters: QueryFilter[] = [],

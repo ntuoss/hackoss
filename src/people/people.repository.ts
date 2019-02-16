@@ -38,8 +38,10 @@ export class PeopleRepository {
         });
     }
 
-    createPerson = (person: NewPerson) =>
-        this.people.add(person)
+    async createPerson(person: NewPerson): Promise<string> {
+        const result = await this.people.add(person);
+        return result.id;
+    }
 
     async getPeople(
         filters: QueryFilter[] = [],

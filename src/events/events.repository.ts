@@ -80,20 +80,25 @@ export class EventsRepository {
     }
 
 
-    createEvent = (event: NewEvent) => {
-        const { bannerId , venueId, ...others } = event;
-        return this.events.add({
+    async createEvent(event: NewEvent): Promise<string> {
+        const { bannerId , venueId, prerequisites, dependencies,
+            status, speakers, startTime, endTime, ...others } = event;
+        const result = await this.events.add({
             ...others,
-            startTime: firebase.firestore.Timestamp.fromDate(event.startTime),
-            endTime: firebase.firestore.Timestamp.fromDate(event.endTime),
+            prerequisites: prerequisites || [],
+            dependencies: dependencies || [],
+            status: status || 'draft',
+            startTime: firebase.firestore.Timestamp.fromDate(startTime),
+            endTime: firebase.firestore.Timestamp.fromDate(endTime),
             banner: this.artworksRepository.artworks.doc(bannerId),
             venue: this.locationRepository.locations.doc(venueId),
-            speakers: event.speakers.map<FirebaseEventSpeaker>(speaker => ({
+            speakers: speakers.map<FirebaseEventSpeaker>(speaker => ({
                 position: speaker.position,
                 person: this.peopleRepository.people.doc(speaker.personId),
                 organisation: this.organisationsRepository.organisations.doc(speaker.organisationId),
             }))
         });
+        return result.id;
     }
 
     async getEvents(

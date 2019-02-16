@@ -43,9 +43,10 @@ export class ArtworksRepository {
         });
     }
 
-    createArtwork = (artwork: NewArtwork) => {
+    async createArtwork(artwork: NewArtwork): Promise<string> {
         const { artistId, ...others } = artwork;
-        return this.artworks.add({...others, artist: this.peopleRepository.people.doc(artistId)});
+        const result = await this.artworks.add({ ...others, artist: this.peopleRepository.people.doc(artistId) });
+        return result.id;
     }
 
     async getArtworks(
@@ -56,7 +57,7 @@ export class ArtworksRepository {
     ): Promise<Artwork[]> {
         const orderByPath = ARTWORKS_ORDER_KEY_PATH_MAP[orderBy];
         const results = await buildQuery(this.artworks, limit, orderByPath, direction, filters).get();
-        return Promise.all(results.docs.map(doc => this.toArtwork({...doc.data() as FirebaseArtwork, id: doc.id})));
+        return Promise.all(results.docs.map(doc => this.toArtwork({ ...doc.data() as FirebaseArtwork, id: doc.id })));
     }
 
     async getArtwork(id: string): Promise<Artwork> {

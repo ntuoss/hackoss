@@ -39,8 +39,10 @@ export class LocationsRepository {
         });
     }
 
-    createLocation = (location: NewLocation) =>
-        this.locations.add(location)
+    async createLocation(location: NewLocation): Promise<string> {
+        const result = await this.locations.add(location);
+        return result.id;
+    }
 
     async getLocations(
         filters: QueryFilter[] = [],
@@ -59,6 +61,8 @@ export class LocationsRepository {
         return this.toLocation({ ...doc.data() as FirebaseLocation, id });
     }
 
-    private toLocation = (data: FirebaseLocation): Location => data;
+    private toLocation(data: FirebaseLocation): Location {
+        return data;
+    }
 
 }
