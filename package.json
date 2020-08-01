@@ -1,43 +1,47 @@
 {
-	"name": "hackoss",
-	"version": "0.4.4",
-	"description": "",
-	"keywords": [],
-	"main": "dist/hackoss.js",
-	"typings": "dist/types/hackoss.d.ts",
-	"files": [
-		"dist"
-	],
-	"author": "Clarence Castillo <clarencecastillo@outlook.com>",
-	"repository": {
-		"type": "git",
-		"url": ""
-	},
-	"license": "MIT",
-	"engines": {
-		"node": ">=6.0.0"
-	},
-	"scripts": {
-		"lint": "tslint --project tsconfig.json",
-		"clean": "rm -rf dist && mkdir dist",
-		"build": "npm run clean && tsc",
-		"package": "npm run build && rm *.tgz && npm pack",
-		"bump": "run() { bump package.json $1; }; run",
-		"publish": "npm publish *.tgz",
-		"prerelease": "run() { npm run lint && npm run bump $1 && npm run package; }; run",
-		"release": "run() { npm run prerelease $1 && npm run publish; }; run"
-	},
-	"dependencies": {
-		"firebase": "^7.17.1",
-		"lodash": "^4.17.19",
-		"validate.js": "^0.12.0"
-	},
-	"devDependencies": {
-		"@types/lodash": "^4.14.120",
-		"bump-file": "2.0.0",
-		"ts-node": "~7.0.1",
-		"tslint": "~5.12.1",
-		"typedoc": "0.17.8",
-		"typescript": "~3.2.4"
-	}
+  "name": "@ntuoss/hackoss",
+  "version": "0.4.4",
+  "description": "",
+  "keywords": [],
+  "main": "dist/hackoss.js",
+  "typings": "dist/types/hackoss.d.ts",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/ntuoss"
+  },
+  "author": "Clarence Castillo <clarencecastillo@outlook.com>",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:ntuoss/hackoss.git",
+    "directory": "@ntuoss/hackoss"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "tslint --project tsconfig.json",
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run clean && tsc",
+    "package": "npm run build && rm *.tgz && npm pack",
+    "bump": "run() { bump package.json $1; }; run",
+    "publish": "npm publish *.tgz",
+    "prerelease": "run() { npm run lint && npm run bump $1 && npm run package; }; run",
+    "release": "run() { npm run prerelease $1 && npm run publish; }; run"
+  },
+  "dependencies": {
+    "firebase": "^7.17.1",
+    "lodash": "^4.17.19",
+    "validate.js": "^0.12.0"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.120",
+    "bump-file": "2.0.0",
+    "ts-node": "~7.0.1",
+    "tslint": "~5.12.1",
+    "typedoc": "0.17.8",
+    "typescript": "~3.2.4"
+  }
 }
