@@ -1,6 +1,6 @@
 {
 	"name": "hackoss",
-	"version": "0.4.3",
+	"version": "0.4.4",
 	"description": "",
 	"keywords": [],
 	"main": "dist/hackoss.js",
@@ -28,8 +28,8 @@
 		"release": "run() { npm run prerelease $1 && npm run publish; }; run"
 	},
 	"dependencies": {
-		"firebase": "^5.8.0",
-		"lodash": "^4.17.11",
+		"firebase": "^7.17.1",
+		"lodash": "^4.17.19",
 		"validate.js": "^0.12.0"
 	},
 	"devDependencies": {
@@ -37,7 +37,7 @@
 		"bump-file": "2.0.0",
 		"ts-node": "~7.0.1",
 		"tslint": "~5.12.1",
-		"typedoc": "^0.14.2",
+		"typedoc": "0.17.8",
 		"typescript": "~3.2.4"
 	}
 }
