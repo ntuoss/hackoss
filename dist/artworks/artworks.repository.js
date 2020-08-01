@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var utils_1 = require("../utils");
 var validate_js_1 = require("validate.js");
-var lodash_1 = require("lodash");
+require("firebase/firestore");
 var ARTWORKS_ORDER_KEY_PATH_MAP = {
     'title': 'title'
 };
@@ -88,17 +88,15 @@ var ArtworksRepository = /** @class */ (function () {
     };
     ArtworksRepository.prototype.toArtwork = function (data) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var artist, _a, _b, _c, _d;
-            return tslib_1.__generator(this, function (_e) {
-                switch (_e.label) {
+            var artist, _a, _b;
+            return tslib_1.__generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
                         artist = this.peopleRepository.getPerson(data.artist.id);
-                        _b = (_a = lodash_1.default).assign;
-                        _c = [data];
-                        _d = {};
+                        _a = [{}, data];
+                        _b = {};
                         return [4 /*yield*/, artist];
-                    case 1: return [2 /*return*/, _b.apply(_a, _c.concat([(_d.artist = _e.sent(),
-                                _d)]))];
+                    case 1: return [2 /*return*/, tslib_1.__assign.apply(void 0, _a.concat([(_b.artist = _c.sent(), _b)]))];
                 }
             });
         });

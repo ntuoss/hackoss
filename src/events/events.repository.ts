@@ -7,7 +7,8 @@ import { OrganisationsRepository } from '../organisations/organisations.reposito
 import { ArtworksRepository } from '../artworks/artworks.repository';
 import { withId, QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore'
 import _ from 'lodash';
 
 export type EventsOrderKey = 'date' | 'title';
@@ -129,26 +130,27 @@ export class EventsRepository {
     }
 
     private async toEvent(data: FirebaseEvent): Promise<Event> {
-
-        const speakers = data.speakers.map(async (speaker): Promise<Speaker> => {
-            const person = this.peopleRepository.getPerson(speaker.person.id);
-            const organisation = this.organisationsRepository.getOrganisation(speaker.organisation.id);
-            return {
-                person: await person,
-                organisation: await organisation,
-                position: speaker.position
-            };
-        });
+        const speakers = data.speakers.filter(s => (s.person.id !== undefined && s.organisation.id !== undefined))
+            .map(async (speaker): Promise<Speaker> => {
+                const person = this.peopleRepository.getPerson(speaker.person.id);
+                const organisation = this.organisationsRepository.getOrganisation(speaker.organisation.id);
+                return {
+                    person: await person,
+                    organisation: await organisation,
+                    position: speaker.position
+                };
+            });
 
         const banner = this.artworksRepository.getArtwork(data.banner.id);
         const venue = this.locationRepository.getLocation(data.venue.id);
 
-        return _.assign(data, {
+        return {
+            ...data,
             speakers: await Promise.all(speakers),
             banner: await banner,
             venue: await venue,
             startTime: data.startTime.toDate(),
             endTime: data.endTime.toDate()
-        });
+        }
     }
 }

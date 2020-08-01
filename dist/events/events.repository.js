@@ -3,8 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var utils_1 = require("../utils");
 var validate_js_1 = require("validate.js");
-var firebase_1 = require("firebase");
-var lodash_1 = require("lodash");
+var firebase = require("firebase/app");
+require("firebase/firestore");
 var EVENTS_ORDER_KEY_PATH_MAP = {
     'date': 'startTime',
     'title': 'title'
@@ -58,8 +58,8 @@ var EventsRepository = /** @class */ (function () {
                     remarks: event.remarks,
                     eventbrite: event.eventbrite,
                     facebook: event.facebook,
-                    startTime: firebase_1.default.firestore.Timestamp.fromDate(event.startTime),
-                    endTime: firebase_1.default.firestore.Timestamp.fromDate(event.endTime),
+                    startTime: firebase.firestore.Timestamp.fromDate(event.startTime),
+                    endTime: firebase.firestore.Timestamp.fromDate(event.endTime),
                     banner: this.artworksRepository.artworks.doc(event.bannerId),
                     venue: this.locationRepository.locations.doc(event.venueId),
                     speakers: event.speakers.map(function (speaker) { return ({
@@ -110,12 +110,13 @@ var EventsRepository = /** @class */ (function () {
     };
     EventsRepository.prototype.toEvent = function (data) {
         return tslib_1.__awaiter(this, void 0, void 0, function () {
-            var speakers, banner, venue, _a, _b, _c, _d;
+            var speakers, banner, venue, _a, _b;
             var _this = this;
-            return tslib_1.__generator(this, function (_e) {
-                switch (_e.label) {
+            return tslib_1.__generator(this, function (_c) {
+                switch (_c.label) {
                     case 0:
-                        speakers = data.speakers.map(function (speaker) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
+                        speakers = data.speakers.filter(function (s) { return (s.person.id !== undefined && s.organisation.id !== undefined); })
+                            .map(function (speaker) { return tslib_1.__awaiter(_this, void 0, void 0, function () {
                             var person, organisation, _a;
                             return tslib_1.__generator(this, function (_b) {
                                 switch (_b.label) {
@@ -135,20 +136,16 @@ var EventsRepository = /** @class */ (function () {
                         }); });
                         banner = this.artworksRepository.getArtwork(data.banner.id);
                         venue = this.locationRepository.getLocation(data.venue.id);
-                        _b = (_a = lodash_1.default).assign;
-                        _c = [data];
-                        _d = {};
+                        _a = [{}, data];
+                        _b = {};
                         return [4 /*yield*/, Promise.all(speakers)];
                     case 1:
-                        _d.speakers = _e.sent();
+                        _b.speakers = _c.sent();
                         return [4 /*yield*/, banner];
                     case 2:
-                        _d.banner = _e.sent();
+                        _b.banner = _c.sent();
                         return [4 /*yield*/, venue];
-                    case 3: return [2 /*return*/, _b.apply(_a, _c.concat([(_d.venue = _e.sent(),
-                                _d.startTime = data.startTime.toDate(),
-                                _d.endTime = data.endTime.toDate(),
-                                _d)]))];
+                    case 3: return [2 /*return*/, tslib_1.__assign.apply(void 0, _a.concat([(_b.venue = _c.sent(), _b.startTime = data.startTime.toDate(), _b.endTime = data.endTime.toDate(), _b)]))];
                 }
             });
         });

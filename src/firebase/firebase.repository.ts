@@ -1,6 +1,6 @@
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore'
 import { FirebaseConfig } from './firebase.config';
-
 export class FirebaseRepository {
 
     firestore: firebase.firestore.Firestore;

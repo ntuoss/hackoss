@@ -1,7 +1,8 @@
 import { Person } from './person';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { QueryFilter } from '../utils';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 export declare type PeopleOrderKey = 'name';
 export interface NewPerson {
     name: string;

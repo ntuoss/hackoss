@@ -4,7 +4,8 @@ import { FirebaseArtwork } from './artwork.firebase';
 import { PeopleRepository } from '../people/people.repository';
 import { withId, QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore'
 import _ from 'lodash';
 
 export type ArtworksOrderKey = 'title';
@@ -73,9 +74,10 @@ export class ArtworksRepository {
 
     private async toArtwork(data: FirebaseArtwork): Promise<Artwork> {
         const artist = this.peopleRepository.getPerson(data.artist.id);
-        return _.assign(data, {
+        return {
+            ...data,
             artist: await artist
-        });
+        };
     }
 
 }

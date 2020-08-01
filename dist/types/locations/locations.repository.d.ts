@@ -1,7 +1,8 @@
 import { Location } from './location';
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { QueryFilter } from '../utils';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 export declare type LocationsOrderKey = 'name';
 export interface NewLocation {
     name: string;

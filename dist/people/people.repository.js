@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var tslib_1 = require("tslib");
 var utils_1 = require("../utils");
 var validate_js_1 = require("validate.js");
+require("firebase/firestore");
 var PEOPLE_ORDER_KEY_PATH_MAP = {
     'name': 'name'
 };

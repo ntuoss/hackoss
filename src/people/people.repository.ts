@@ -3,7 +3,8 @@ import { FirebaseRepository } from '../firebase/firebase.repository';
 import { FirebasePerson } from './person.firebase';
 import { withId, QueryFilter, buildQuery } from '../utils';
 import { validators } from 'validate.js';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore'
 import _ from 'lodash';
 
 export type PeopleOrderKey = 'name';

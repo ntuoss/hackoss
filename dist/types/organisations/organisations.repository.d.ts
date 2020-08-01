@@ -1,7 +1,8 @@
 import { FirebaseRepository } from '../firebase/firebase.repository';
 import { Organisation } from './organisation';
 import { QueryFilter } from '../utils';
-import firebase from 'firebase';
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
 export declare type OrganisationsOrderKey = 'name';
 export interface NewOrganisation {
     name: string;
